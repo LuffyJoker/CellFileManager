@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">资源管理器</string>
+    <string name="press_again_exit">再按一次退出</string>
+    <!-- ###################for xgimi####################### -->
+    <!-- 网上邻居 -->
+    <string name="connect">连接</string>
+    <!-- ################################################### -->
+
+    <!-- ####################文件浏览模块资源定义区#################### -->
+
+    <!-- 加载进度提示信息定义区 -->
+
+
+    <!-- video handle -->
+    <string name="video_recent_history">观看记录</string>
+    <string name="video_recent_add">最近添加</string>
+    <string name="video_all_video">所有影片</string>
+
+    <string name="add_device_add">添加设备</string>
+
+    <string name="scan_again">重新扫描</string>
+    <string name="auto_connect">手动连接</string>
+
+    <string name="edittext_ip_address">192.168.1.1</string>
+    <string name="edittext_user_name">用户名</string>
+    <string name="edittext_passward">密码</string>
+
+    <string name="device_choose_notice">选择要添加的设备类型</string>
+
+    <string name="choose_file_type">选择文件类型</string>
+    <string name="dialog_type_text">文本</string>
+    <string name="dialog_type_audio">音频</string>
+    <string name="dialog_type_video">视频</string>
+    <string name="dialog_type_image">图片</string>
+    <string name="dialog_type_other">其他</string>
+
+    <string name="sdcard_name">内置存储</string>
+    <string name="usb_name">移动存储</string>
+    <string name="usb_native">内接硬盘</string>
+
+    <string name="grid_mode">图标模式</string>
+    <string name="list_mode">列表模式</string>
+    <string name="name_sort">按名称排序</string>
+    <string name="time_sort">按时间排序</string>
+
+
+    <string name="clear_history">清除播放记录</string>
+    <string name="searching">搜索文件</string>
+    <string name="paste">粘贴</string>
+
+    <!-- 文件操作 -->
+    <string name="copy">复制文件</string>
+    <string name="cut">剪切文件</string>
+    <string name="rename">重命名</string>
+    <string name="detail">详细信息</string>
+    <string name="file_operation">文件操作</string>
+    <string name="newfile">新建文件</string>
+    <string name="delfile">删除文件</string>
+    <string name="delhistory">删除播放历史记录</string>
+    <string name="clearhistory">清空播放历史记录</string>
+    <string name="select_all">全选</string>
+    <string name="multiselect">多选</string>
+    <string name="unselect_all">全不选</string>
+    <string name="select_invert">反选</string>
+    <string name="hide_file">文件隐藏</string>
+    <string name="show_file">文件显示</string>
+
+
+    <string name="file_operation_not_exist">文件不存在</string>
+    <string name="file_operation_delete_success">文件删除成功</string>
+    <string name="file_operation_del_file">确定删除文件</string>
+
+    <string name="file_operation_name">文件名称</string>
+    <string name="file_operation_path">文件路径</string>
+    <string name="file_operation_size">文件大小</string>
+    <string name="file_operation_type">文件类型</string>
+
+
+    <string name="illegal_path">路径不合法</string>
+    <string name="file_name_not_allow_null">文件名不能为空</string>
+    <string name="read_only_file_system">当前文件系统为只读</string>
+
+
+    <string name="notice_copy_file">请先复制或剪切文件</string>
+    <string name="samba_scan_over">扫描完成</string>
+    <string name="file_operation_r">可读</string>
+    <string name="file_operation_w">可写</string>
+    <string name="file_operation_rw">读写权限</string>
+    <string name="file_operation_modify">上次修改时间</string>
+    <string name="file_category_directory">文件夹</string>
+    <string name="file_category_file">文件</string>
+    <string name="clear_record_success">播放记录已清除</string>
+    <string name="play_iso_fail">iso文件打开失败</string>
+
+
+    <string name="del_history_dialog_notice">提示</string>
+    <string name="del_history_dialog_content">确定删除播放记录?</string>
+    <string name="dialog_left">取消</string>
+    <string name="dialog_right">确定</string>
+
+    <string name="search_video_file">搜索视频文件 </string>
+    <string name="search_audio_file">搜索音频文件  </string>
+    <string name="search_picture_file">搜索图片文件  </string>
+    <string name="search_document_file">搜索文档文件  </string>
+    <string name="search_apk_file">搜索应用文件  </string>
+
+    <string name="search_file_hint">文件名 (关键字)</string>
+    <string name="search_video_file_hint">视频文件名  (关键字)</string>
+    <string name="search_audio_file_hint">音频文件名 (关键字)</string>
+    <string name="search_picture_file_hint">图片 文件名 (关键字)</string>
+    <string name="search_document_file_hint">文档文件名 (关键字)</string>
+    <string name="search_apk_file_hint">应用文件名 (关键字)</string>
+
+    <string name="mount_samba_success">网上邻居登录成功</string>
+    <string name="login_samba_failure">网上邻居登录失败 </string>
+    <string name="login_in">登录中...</string>
+    <string name="login_pwd_wrong">登录密码错误</string>
+    <string name="rename_file_exist">文件已存在</string>
+    <string name="ubwritable_file">没有写权限</string>
+
+    <string name="serach_file_done">搜索文件结束</string>
+    <string name="serach_file_start">开始搜索文件 </string>
+
+
+    <string name="filename">名称:</string>
+    <string name="filesize">大小:</string>
+    <string name="filepath">路径:</string>
+
+    <string name="filefrom">从:</string>
+    <string name="fileto">到:</string>
+
+    <string name="hidedialog">隐藏</string>
+    <string name="deleting">正在删除</string>
+    <string name="copying">正在复制</string>
+    <string name="cutting">正在粘贴</string>
+    <string name="create_dir_success">创建文件夹成功</string>
+    <string name="menu_notice">点击遥控器菜单键，唤出更多功能</string>
+    <string name="new_dir">新建文件夹</string>
+    <string name="paste_file">粘贴文件</string>
+    <string name="file_info_name">文件名:</string>
+    <string name="file_info_path">原路径:</string>
+    <string name="file_info_size">文件大小:</string>
+    <string name="file_info_dest">粘贴至:</string>
+    <string name="choose_added_device">选择要添加的设备</string>
+
+
+    <string name="hide_samba_device">断开设备</string>
+    <string name="hide_samba_notice">确定断开设备？</string>
+    <string name="cancel_hide_samba">取消</string>
+    <string name="sure_hide_samba">断开</string>
+    <string name="search_dlna_service">搜索DLNA服务</string>
+    <string name="open_fail">打开失败</string>
+    <string name="no_find_open_app">无法打开该文件</string>
+
+    <string name="sure_del_chosed_file">确定删除选中的%d个文件 ?</string>
+    <string name="file_operation_choosetype">类型：</string>
+    <string name="file_operation_parentpath">位置：</string>
+
+    <string name="file_operation_count_info">总共 %1$d个文件,%2$d个文件夹</string>
+    <string name="file_operation_length_info">占用 %1$s空间</string>
+
+    <string name="create_dir_failure">创建文件夹失败</string>
+    <string name="file_already_exist">文件已存在</string>
+    <string name="rename_file_success">重命名成功</string>
+    <string name="rename_file_failure">重命名失败</string>
+    <string name="notice_nothing_selected">没有选中任何文件</string>
+    <string name="file_operation_decompress_file">解压文件到当前目录</string>
+    <string name="file_operation_decompress_to">解压到:</string>
+    <string name="file_operation_decompress_path">文件:</string>
+    <string name="file_operation_openas">打开方式</string>
+    <string name="open_samba_server">打开共享服务</string>
+    <string name="close_samba_server">关闭共享服务</string>
+
+    <string name="msg_ret_success">解压成功</string>
+    <string name="msg_ret_failure">解压失败</string>
+    <string name="msg_ret_warning">警告</string>
+    <string name="msg_ret_fault">严重错误 </string>
+    <string name="msg_ret_command">命令行错误</string>
+    <string name="msg_ret_memmory">内存不足</string>
+    <string name="msg_ret_user_stop">用户停止进程</string>
+    <string name="emptycontentnotice">内容为空</string>
+    <string name="file_operation_clear_usb">格式化磁盘设备</string>
+    <string name="clear_usb_name">设备名: %s</string>
+    <string name="clear_usb_path">设备路径: %s</string>
+    <string name="clear_usb_quota">设备容量: %s</string>
+    <string name="clear_usb_ing">正在格式化</string>
+    <string name="local_picture">本地图片</string>
+    <string name="setting_backgound_success">设置壁纸成功</string>
+    <string name="setting_backgound_fail">设置壁纸失败</string>
+    <string name="setting_backgound">正在设置壁纸</string>
+
+    <string name="device_notice_close">当前存储共享服务已关闭</string>
+    <string name="device_notice_open">共享文件可支持同WIFI的其他设备访问，访问</string>
+    <string name="device_notice_open_unconnect">未连入WIFI网络</string>
+    <string name="no_hide_file">该目录下没有被隐藏的文件</string>
+    <string name="file_header_notice_pre">遥控器点击“菜单”键或长按“OK”键进行更多操作</string>
+    <string name="file_header_notice_off">或者长按 “OK” 进行更多操作</string>
+
+    <string name="usb_loader">检测到您已插入USB设备</string>
+    <string name="open">打开</string>
+    <string name="chanal">取消</string>
+    <string name="u_out">U盘已拔出</string>
+    <string name="hint">提示</string>
+    <string name="maybe_open_file">您可能想打开的文件</string>
+
+
+    /***************************************new*********************/
+    <string name="progress_wait_loading">正在加载中...</string>
+    <string name="tip_nulldata"><u>当前无数据</u></string>
+    <string name="conntent_null">内容为空</string>
+    <string name="gmuigrid_num">(%d)</string>
+
+    <string name="all">全部</string>
+    <string name="video">视频</string>
+    <string name="music">音乐</string>
+    <string name="picture">图片</string>
+    <string name="doc">文档</string>
+    <string name="unmount_device">删除设备</string>
+    <string name="sample_show_log">aa</string>
+
+    <string name="size">大小 ：%s</string>
+    <string name="create_time">修改时间 ：%s</string>
+    <string name="folder_mode">目录模式</string>
+    <string name="play_mode">播放模式</string>
+    <string name="empty">内容为空</string>
+    <string name="add_network_device">添加局域网设备</string>
+    <string name="manual_connect">手动连接</string>
+    <string name="searching_device">扫描设备中...</string>
+    <string name="connect_share_device">连接共享设备</string>
+    <string name="connect_timeout">连接超时，请检查网络后重试</string>
+    <string name="user_name">用户名</string>
+    <string name="password">密码</string>
+    <string name="ip">ip</string>
+    <string name="edit">编辑</string>
+    <string name="file_info">大小:%1$s 修改日期:%2$s</string>
+    <string name="no_authority">当前用户无访问权限</string>
+    <string name="is_disconnection">连接已断开</string>
+    <string name="search_hint">请输入关键字</string>
+    <string name="please_link_network">网络不可用，请检查网络后重试</string>
+    <string name="network_notlink">网络不可用，请检查网络后重试</string>
+    <string name="name_too_long">文件名超过最大限制</string>
+    <string name="lack_storage_space">存储空间不足</string>
+    <string name="please_select_file">请选择文件</string>
+    <string name="scanning_device">正在扫描设备</string>
+
+    <string name="refresh">刷新</string>
+    <string name="in_refresh">正在刷新...</string>
+    <string name="no_support">此文件不支持打开</string>
+    <string name="file_not_exist">文件不存在</string>
+    <string name="error_in_file_paste">文件粘贴出错</string>
+    <string name="tips_for_pasting_large_files">文件复制完成前请勿退出应用</string>
+
+    <string name="info_file_sum_music">%1$s(共%2$d首)</string>
+    <string name="info_file_sum_movie">%1$s(共%2$d个)</string>
+    <string name="info_file_sum_picture">%1$s(共%2$d张)</string>
+
+    <string name="error_offline_search_dlna">无法连接服务器，请检查你的网络</string>
+    <string name="hint_searching_dlna">已启动搜索</string>
+</resources>

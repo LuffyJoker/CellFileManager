@@ -1,0 +1,5 @@
+include ':dlna'
+include ':samba'
+include ':samba'
+include ':app'
+rootProject.name = "FileManager"

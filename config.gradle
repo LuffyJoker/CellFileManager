@@ -1,0 +1,90 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+ext {
+
+    // main
+    appcompat = '1.1.0'
+    core_ktx = '1.2.0'
+    material = '1.1.0'
+
+    // App dependencies
+    supportLibraryVersion = '23.1.1'
+    guavaVersion = '18.0'
+    junitVersion = '4.12'
+    mockitoVersion = '1.10.19'
+    powerMockito = '1.6.2'
+    hamcrestVersion = '1.3'
+    runnerVersion = '0.4.1'
+    rulesVersion = '0.4.1'
+    espressoVersion = '2.2.1'
+
+    androidx_recyclerView = '1.1.0'
+    gimiskin = '1.0.14'
+    res_customized = '0.0.7'
+    filedownloader = '1.7.7'
+    recyclerview_adapter = '3.0.4'
+    globalUtil = '1.29.0'
+    middleware = '1.1.19'
+    commonlib = '1.0.6'
+    recyclerview_adapter = '3.0.4'
+    eventbus = '1.0.5.1'
+    datareporter = 'v1.1.14'
+    glide = '4.8.0'
+    documentfile = '1.0.1'
+    dialog = 'v1.1.12'
+    cardview = '1.0.0'
+    rxJava = 'latest.release'
+    rxAndroid = 'latest.release'
+    leanback = '1.0.0'
+    cellview_version = '1.1.6'
+    coroutines_version = '1.3.2'
+    jetpack_version = '2.2.0-rc02'
+
+    android = [compileSdkVersion: 29,
+               buildToolsVersion: "29.0.2",
+               minSdkVersion    : 21,
+               targetSdkVersion : 29]
+
+    main = [
+            // 主模块
+            "appcompat": "androidx.appcompat:appcompat:$rootProject.ext.appcompat",
+            "core-ktx" : "androidx.core:core-ktx:$rootProject.ext.core_ktx",
+            "material" : "com.google.android.material:$rootProject.ext.material",
+    ]
+
+    dependencies = [
+            "recyclerview"            : "androidx.recyclerview:recyclerview:$rootProject.ext.androidx_recyclerView",
+            "res_customized"          : "com.xgimi.res.customized:sdk:$rootProject.ext.res_customized",
+            "filedownloader"          : "com.liulishuo.filedownloader:library:$rootProject.ext.filedownloader",
+            "recyclerview_adapter"    : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.ext.recyclerview_adapter",
+            "globalUtil"              : "com.blankj:utilcodex:$rootProject.ext.globalUtil",
+            "middleware"              : "com.xgimi.gmuiapi:middleware:$rootProject.ext.middleware",
+            "commonlib"               : "com.xgimi.common:common-lib:$rootProject.ext.commonlib",
+            "recyclerview_adapter"    : "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.ext.recyclerview_adapter",
+            "eventbus"                : "org.simple:androideventbus:$rootProject.ext.eventbus",
+            "datareporter"            : "com.xgimi.datareporter:sdk:$rootProject.ext.datareporter",
+            "glide"                   : "com.github.bumptech.glide:glide:$rootProject.ext.glide",
+            "glideAnnotationProcessor": "com.github.bumptech.glide:compiler:$rootProject.ext.glide",
+            "documentfile"            : "androidx.documentfile:documentfile:$rootProject.ext.documentfile",
+            "dialog"                  : "com.xgimi.library:dialog:$rootProject.ext.dialog",
+            "cardview"                : "androidx.cardview:cardview:$rootProject.ext.cardview",
+            "rxJava"                  : "io.reactivex:rxjava:$rootProject.ext.rxJava",
+            "rxAndroid"               : "io.reactivex:rxandroid:$rootProject.ext.rxAndroid",
+            "leanback"                : "androidx.leanback:leanback:$rootProject.ext.leanback",
+            "cellview"                : "com.xgimi.library:cellview:$rootProject.ext.cellview_version",
+            "gimiskin"                : "com.xgimi.gimiskin:sdk:$rootProject.ext.gimiskin",
+            "skincell"                : "com.xgimi.gimiskin:cell:$rootProject.ext.gimiskin",
+
+            // 协程库支持
+            "coroutinescore"          : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version",
+            "coroutinesandroid"       : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version",
+
+            // mvvm协程支持
+            "lifecycle-viewmodel-ktx" : "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.ext.jetpack_version",
+            "lifecycle-livedata-ktx"  : "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.ext.jetpack_version",
+            "lifecycle-runtime-ktx"   : "androidx.lifecycle:lifecycle-runtime-ktx:$rootProject.ext.jetpack_version",
+            "lifecycle-extensions"    : "androidx.lifecycle:lifecycle-extensions:$rootProject.ext.jetpack_version",
+    ]
+}
+
+

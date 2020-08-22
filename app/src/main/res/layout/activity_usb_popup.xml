@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.xgimi.filemanager.ui.view.ShadeFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/aup_has_file_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:id="@+id/aup_root"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="840px"
+            android:layout_height="292px"
+            android:layout_gravity="center"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dp_24">
+
+            <com.xgimi.gimiskin.sdk.SkinTextView
+                style="@style/font_crosshead_bold_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/hint" />
+
+            <com.xgimi.gimiskin.sdk.SkinTextView
+                style="@style/font_body_medium_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12sp"
+                android:text="@string/usb_loader"
+                android:textColor="#ccffffff" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_12"
+                android:layout_marginBottom="@dimen/dp_12"
+                android:clipChildren="false"
+                android:orientation="horizontal">
+
+                <com.xgimi.gimiskin.sdk.SkinButtonView
+                    android:id="@+id/aup_open"
+                    style="@style/btn_commonly_medium_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/open" />
+
+                <com.xgimi.gimiskin.sdk.SkinButtonView
+                    android:id="@+id/aup_cancel"
+                    style="@style/btn_commonly_medium_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_24"
+                    android:text="@string/chanal" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.xgimi.gimiskin.sdk.SkinTextView
+            android:id="@+id/want_open"
+            style="@style/font_caption_regular_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-12dp"
+            android:paddingLeft="@dimen/dp_24"
+            android:text="@string/maybe_open_file"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/aup_maybe_open"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_8"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dp_24"
+            android:paddingBottom="@dimen/dp_8"
+            android:visibility="gone" />
+    </LinearLayout>
+</com.xgimi.filemanager.ui.view.ShadeFrameLayout>

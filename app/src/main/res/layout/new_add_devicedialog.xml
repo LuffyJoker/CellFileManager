@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <LinearLayout
+        android:id="@+id/linear_addTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_48"
+        android:layout_marginTop="@dimen/dp_48"
+        android:layout_marginRight="@dimen/dp_48"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="horizontal">
+
+        <com.xgimi.gimiskin.sdk.SkinIconImageView
+            android:id="@+id/img_icon_arrowleft"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dp_26"
+            android:src="@drawable/ic_icon_arrowleft"
+            app:tintColor="@color/color_grey_alpha_3" />
+
+        <com.xgimi.gimiskin.sdk.SkinTextView
+            android:id="@+id/text_add_device"
+            style="@style/font_crosshead_bold_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="@string/add_network_device" />
+
+        <com.xgimi.gimiskin.sdk.SkinButtonView
+            android:id="@+id/nad_refresh_button"
+            style="@style/btn_commonly_medium_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:text="@string/refresh" />
+
+        <com.xgimi.gimiskin.sdk.SkinButtonView
+            android:id="@+id/nad_manual_button"
+            style="@style/btn_commonly_medium_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_33"
+            android:layout_marginRight="@dimen/dp_26"
+            android:focusable="true"
+            android:text="@string/manual_connect" />
+    </LinearLayout>
+
+    <com.xgimi.filemanager.ui.view.GridListView
+        android:id="@+id/nad_deviceGrid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:descendantFocusability="beforeDescendants"
+        android:fastScrollEnabled="false" />
+
+    <TextView
+        android:id="@+id/nad_current_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="123px"
+        android:gravity="bottom|right"
+        android:textSize="15sp" />
+</FrameLayout>

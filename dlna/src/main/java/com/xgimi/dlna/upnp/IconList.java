@@ -1,0 +1,34 @@
+package com.xgimi.dlna.upnp;
+
+import java.util.Vector;
+
+/**
+ * author : joker.peng
+ * e-mail : joker.peng@xgimi.com
+ * date   : 2020/8/4 10:13
+ * desc   :
+ */
+public class IconList extends Vector {
+    ////////////////////////////////////////////////
+    //	Constants
+    ////////////////////////////////////////////////
+
+    public final static String ELEM_NAME = "iconList";
+
+    ////////////////////////////////////////////////
+    //	Constructor
+    ////////////////////////////////////////////////
+
+    public IconList() {
+    }
+
+    ////////////////////////////////////////////////
+    //	Methods
+    ////////////////////////////////////////////////
+
+    public Icon getIcon(int n) {
+        return (Icon) get(n);
+    }
+}
+
+

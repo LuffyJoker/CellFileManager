@@ -1,0 +1,202 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="menuanimationpreview">
+        <item name="android:windowEnterAnimation">@anim/menu_fadein</item>
+        <item name="android:windowExitAnimation">@anim/menu_fadeout</item>
+    </style>
+
+    <style name="theme_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="nullAnim_theme_dialog" parent="@style/theme_dialog">
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <style name="New_Add_DevieDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+
+    <!--    &lt;!&ndash;-->
+    <!--        Base application theme, dependent on API level. This theme is replaced-->
+    <!--        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.-->
+    <!--    &ndash;&gt;-->
+    <!--    <style name="AppBaseTheme" parent="android:Theme.Light">-->
+    <!--        &lt;!&ndash;-->
+    <!--            Theme customizations available in newer API levels can go in-->
+    <!--            res/values-vXX/styles.xml, while customizations related to-->
+    <!--            backward-compatibility can go here.-->
+    <!--        &ndash;&gt;-->
+    <!--    </style>-->
+    <!--    &lt;!&ndash; Application theme. &ndash;&gt;-->
+    <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!--        &lt;!&ndash;<item name="android:background">@android:color/transparent</item>&ndash;&gt;-->
+    <!--        &lt;!&ndash;<item name="android:windowAnimationStyle">@style/AnimationActivity</item>&ndash;&gt;-->
+    <!--    </style>-->
+    <!--    <style name="AnimationActivity" parent="@android:style/Animation.Translucent">-->
+    <!--        <item name="android:windowEnterAnimation">@anim/activity_fade_in</item>-->
+    <!--        <item name="android:windowExitAnimation">@anim/activity_fade_out</item>-->
+    <!--    </style>-->
+    <!--    <style name="transparent" parent="@style/AppTheme">-->
+    <!--	　　<item name="android:windowAnimationStyle">@style/Botton_Translucent</item>-->
+    <!--　　 </style>-->
+    <!--    <style name="Botton_Translucent" parent="@android:style/Animation.Translucent">-->
+    <!--        <item name="android:windowEnterAnimation">@anim/trans_botton_in</item>-->
+    <!--        <item name="android:windowExitAnimation">@anim/trans_botton_out</item>-->
+    <!--    </style>-->
+    <!--    <style name="PopupStyle" parent="@android:style/Theme.NoTitleBar.Fullscreen">-->
+    <!--        <item name="android:windowIsTranslucent">false</item>-->
+    <!--        <item name="android:windowNoTitle">true</item>-->
+    <!--        <item name="android:windowAnimationStyle">@null</item>-->
+    <!--    </style>-->
+    <!--    <style name="UsbPopupStyle" parent="@android:style/Theme.Translucent.NoTitleBar">-->
+    <!--        <item name="android:windowAnimationStyle">@null</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="title_style">-->
+    <!--        <item name="android:textSize">36px</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@drawable/font_color_selector</item>-->
+    <!--        </style>-->
+
+    <!--    <style name="video_handle_style">-->
+    <!--        <item name="android:textSize">36px</item>-->
+    <!--        <item name="android:layout_height">72dp</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@color/white</item>-->
+    <!--        <item name="android:background">#00000000</item>-->
+    <!--        <item name="android:focusable">false</item>-->
+    <!--        </style>-->
+    <!--        -->
+    <!--      <style name="dialog_notitle"  parent="@android:style/Theme.Dialog">-->
+    <!--		<item name="android:windowNoTitle">true</item>-->
+    <!--		<item name="android:background">#00000000</item>-->
+    <!--		<item name="android:windowBackground">@color/dialog_background_color</item>-->
+    <!--		<item name="android:windowFrame">@null</item>-->
+    <!--		&lt;!&ndash;是否浮现在activity之上&ndash;&gt; -->
+    <!--        <item name="android:windowIsFloating">true</item>-->
+    <!--		&lt;!&ndash;是否模糊&ndash;&gt; -->
+    <!--        <item name="android:backgroundDimEnabled">true</item>-->
+    <!--		<item name="android:windowIsTranslucent">true</item>-->
+    <!--		</style>-->
+    <!--		-->
+    <!--      -->
+    <!--    <style name="MyDialog" parent="@android:style/Theme.Dialog">-->
+    <!--        <item name="android:windowBackground">@color/dialog_trans</item>-->
+    <!--        <item name="android:colorBackgroundCacheHint">@null</item>-->
+    <!--        <item name="android:backgroundDimEnabled">true</item>-->
+    <!--        <item name="android:windowNoTitle">true</item>-->
+    <!--        <item name="android:windowIsTranslucent">true</item>&lt;!&ndash;半透明&ndash;&gt;-->
+    <!--        <item name="android:windowFrame">@null</item>-->
+    <!--        <item name="android:windowAnimationStyle">@android:style/Animation</item>-->
+    <!--     </style>-->
+    <!--    <style name="New_Add_DevieDialog" parent="@android:style/Theme.Dialog">-->
+    <!--        <item name="android:colorBackgroundCacheHint">@null</item>-->
+    <!--        <item name="android:backgroundDimEnabled">false</item>-->
+    <!--        <item name="android:windowNoTitle">true</item>-->
+    <!--        <item name="android:windowIsTranslucent">false</item>&lt;!&ndash;半透明&ndash;&gt;-->
+    <!--        <item name="android:windowFrame">@null</item>-->
+    <!--        <item name="android:windowAnimationStyle">@null</item>-->
+    <!--    </style>-->
+    <!--        -->
+    <!--    <style name="FullHeightDialog" parent="android:style/Theme.Dialog">-->
+    <!--		<item name="android:windowNoTitle">true</item>-->
+    <!--		<item name="android:windowBackground">@android:color/transparent</item>-->
+    <!--		</style>-->
+    <!--     -->
+    <!--        -->
+    <!--        -->
+    <!--       <style name="choose_time_dialog" parent="@android:style/Theme.Dialog">-->
+
+    <!--        <item name="android:windowFrame">@null</item>&lt;!&ndash;边框 &ndash;&gt;-->
+
+    <!--        <item name="android:windowIsFloating">true</item>&lt;!&ndash;是否浮现在activity之上 &ndash;&gt;-->
+
+    <!--        <item name="android:windowIsTranslucent">false</item>&lt;!&ndash;半透明 &ndash;&gt;-->
+
+    <!--        <item name="android:windowNoTitle">true</item>-->
+
+    <!--        <item name="android:background">@null</item>-->
+
+    <!--        <item name="android:backgroundDimEnabled">false</item>&lt;!&ndash;模糊 &ndash;&gt;-->
+
+    <!--    </style>-->
+    <!--        <style name="setting_text_style">-->
+    <!--        <item name="android:layout_height">wrap_content</item>-->
+    <!--        <item name="android:layout_width">wrap_content</item>-->
+    <!--        <item name="android:textColor">@drawable/font_color_selector</item>-->
+    <!--        <item name="android:textSize">28sp</item>-->
+    <!--        <item name="android:radius">2dp</item>-->
+    <!--        <item name="android:layout_marginLeft">8dp</item>-->
+    <!--        <item name="android:focusable">false</item>-->
+    <!--        <item name="android:focusableInTouchMode">true</item>-->
+    <!--    </style>-->
+
+    <!--    <style name="setting_item_image_style">-->
+    <!--        <item name="android:layout_height">@dimen/setting_item_size</item>-->
+    <!--        <item name="android:layout_width">@dimen/setting_item_size</item>-->
+    <!--        <item name="android:focusable">false</item>-->
+    <!--        <item name="android:focusableInTouchMode">false</item>-->
+    <!--    </style>-->
+    <!--    -->
+    <!--    <style name="dividingline">-->
+    <!--        <item name="android:background">@color/settings_space</item>-->
+    <!--    </style>-->
+
+
+    <!--    <style name="text_name_style">-->
+    <!--        <item name="android:textSize">40px</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@color/white</item>-->
+    <!--    </style>-->
+    <!--    <style name="text_describe_style">-->
+    <!--        <item name="android:textSize">24px</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@color/text_color_Default</item>-->
+    <!--    </style>-->
+    <!--    <style name="text_28_style">-->
+    <!--        <item name="android:textSize">28px</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@color/white</item>-->
+    <!--    </style>-->
+    <!--    <style name="text_32_style">-->
+    <!--        <item name="android:textSize">32px</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@color/white</item>-->
+    <!--    </style>-->
+    <!--    <style name="text_30_style">-->
+    <!--        <item name="android:textSize">30px</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@color/white</item>-->
+    <!--    </style>-->
+    <!--    <style name="text_24_style">-->
+    <!--        <item name="android:textSize">24px</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@color/white</item>-->
+    <!--    </style>-->
+    <!--    <style name="text_40_style">-->
+    <!--        <item name="android:textSize">40px</item>-->
+    <!--        <item name="android:gravity">center</item>-->
+    <!--        <item name="android:typeface">sans</item>-->
+    <!--        <item name="android:textColor">@color/white</item>-->
+    <!--    </style>-->
+
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#ffffff</color>
+    <color name="white_alpha50">#80FFFFFF</color>
+    <color name="usbpopup_background_color">#2b55dd</color>
+    <color name="check_item_select_text_color">#111111</color>
+
+    <color name="default_overlay_color">#AAFFFFFF</color>
+
+    <!--    <color name="white">#FFFFFF</color>-->
+    <color name="white_helf">#b8d1f1</color>
+    <!-- 默认对话框放的文字颜色 -->
+    <color name="dialog_background_color">#ff5e5e5e</color>
+    <color name="dialog_trans">#00000000</color>
+    <color name="color_trans">#00000000</color>
+    <color name="settings_space">#1AFFFFFF</color>
+
+    <color name="black">#000000</color>
+
+    <color name="describe_text_color">#66ffffff</color>
+    <color name="transparent">#00000000</color>
+    <color name="button_normal_color">#455e7e</color>
+    <color name="button_selected_color">#1e7cf1</color>
+    <color name="text_hint_color">#b8d1f1</color>
+
+    <!--  副牌 主题 颜色抽取  -->
+    <color name="text_color_Default">#ffffff</color>
+    <color name="text_color_Default_60">#99ffffff</color>
+
+
+    <color name="base_blue">#4A7DFF</color>
+
+
+
+</resources>

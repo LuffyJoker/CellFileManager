@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_column="6"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginRight="@dimen/dp_20"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:descendantFocusability="beforeDescendants"
+        android:fastScrollEnabled="false"
+        android:paddingLeft="@dimen/dp_48"
+        android:paddingBottom="@dimen/dp_48"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="6"
+        android:visibility="gone"
+        />
+
+    <androidx.leanback.widget.VerticalGridView
+        android:id="@+id/gmuigrid_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_25"
+        android:layout_marginRight="@dimen/dp_20"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:descendantFocusability="beforeDescendants"
+        android:fastScrollEnabled="false"
+        android:paddingLeft="@dimen/dp_48"
+        android:paddingBottom="@dimen/dp_48"
+        app:focusOutEnd="true"
+        app:focusOutFront="true"
+        android:visibility="visible"
+        />
+
+    <include
+        layout="@layout/new_view_alertdialog"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
+</merge>

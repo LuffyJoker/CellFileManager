@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="FileManager.app" target="1.8" />
+      <module name="FileManager.dlna" target="1.8" />
+      <module name="FileManager.samba" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

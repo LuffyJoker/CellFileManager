@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="autoed" type="id"></item>
+
+    <item name="auto_width" type="id"></item>
+    <item name="auto_height" type="id"></item>
+    <item name="manualscroll" type="id"></item>
+    <item name="auto_notneed" type="id"></item>
+
+    <item name="focus_border_view" type="id"></item>
+    <item name="video_img_tag" type="id" />
+
+    <item name="img_tag" type="id" />
+</resources>
