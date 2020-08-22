@@ -1,9 +1,7 @@
 package com.xgimi.filemanager
 
 import android.os.Bundle
-import android.view.ViewTreeObserver
 import com.xgimi.filemanager.page.AddSambaDevicePage
-import com.xgimi.filemanager.page.AllPage
 
 class AddSambaDeviceActivity : BaseActivity() {
 
@@ -29,5 +27,10 @@ class AddSambaDeviceActivity : BaseActivity() {
 
     override fun initView(savedInstanceState: Bundle?) {
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        page.stop()
     }
 }

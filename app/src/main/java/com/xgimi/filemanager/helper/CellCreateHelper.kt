@@ -1,6 +1,5 @@
 package com.xgimi.filemanager.helper
 
-import android.content.Intent
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.Utils
 import com.xgimi.filemanager.R
@@ -10,12 +9,10 @@ import com.xgimi.filemanager.bean.DeviceInfo
 import com.xgimi.filemanager.enums.FileCategory
 import com.xgimi.filemanager.menus.XgimiMenuItem
 import com.xgimi.gimiskin.cell.setStyle
-import com.xgimi.gimiskin.cell.widget.SkinIconButtonBuilder
 import com.xgimi.gimiskin.sdk.SkinEngine
 import com.xgimi.view.cell.Cell
 import com.xgimi.view.cell.CellEvent
 import com.xgimi.view.cell.Layout
-import com.xgimi.view.cell.Supports
 import com.xgimi.view.cell.component.ColorComponent
 import com.xgimi.view.cell.component.FocusComponent
 import com.xgimi.view.cell.component.ImageComponent
@@ -91,7 +88,19 @@ object CellCreateHelper {
 
         when (any) {
             is DeviceInfo -> {
-                text = any.deviceName
+                var deviceName = ""
+                val deviceType: Int = any.deviceType
+                if (deviceType == DeviceInfo.DeviceCategory.Samba.ordinal) {
+                    val hostname: String = any.hostName
+                    deviceName = if (StringUtils.isEmpty(hostname)) {
+                        any.ip
+                    } else {
+                        hostname
+                    }
+                } else {
+                    deviceName = any.deviceName
+                }
+                text = deviceName
             }
             is XgimiMenuItem -> {
                 text = any.name

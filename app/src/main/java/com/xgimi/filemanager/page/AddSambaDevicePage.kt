@@ -3,8 +3,6 @@ package com.xgimi.filemanager.page
 import android.app.Activity
 import android.os.Message
 import android.view.KeyEvent
-import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.StringUtils
@@ -13,7 +11,6 @@ import com.xgimi.filemanager.R
 import com.xgimi.filemanager.bean.DeviceInfo
 import com.xgimi.filemanager.constants.Constants
 import com.xgimi.filemanager.helper.CellCreateHelper
-import com.xgimi.filemanager.helper.MountHelper
 import com.xgimi.gimiskin.sdk.SkinEngine.getColor
 import com.xgimi.samba.SmbDevice
 import com.xgimi.samba.search.SmbSearcher
@@ -23,10 +20,6 @@ import com.xgimi.view.cell.component.ColorComponent
 import com.xgimi.view.cell.layout.Gravity
 import com.xgimi.view.cell.layout.LinearLayout
 import com.xgimi.view.cell.utils.SimpleFocusAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import rx.functions.Action1
 
 /**
  *    author : joker.peng
@@ -40,7 +33,7 @@ class AddSambaDevicePage(context: Activity) : BasePage(context), SmbSearcher.OnS
     var container: Cell =
         Cell(LinearLayout(LinearLayout.VERTICAL, Constants.GROUP_SIZE, 72, 8)).apply {
             addComponent(ColorComponent().setColor(getColor(R.color.color_bg_pure_0)))
-        }.setPadding(96)
+        }.setPadding(96, 0, 96, 0)
             .setMask(true)
             .setFocusAdapter(SimpleFocusAdapter().serial(true, false, true, false))
 
@@ -197,12 +190,7 @@ class AddSambaDevicePage(context: Activity) : BasePage(context), SmbSearcher.OnS
      * @param user
      * @param passworld
      */
-    private fun mountSamba(
-        ip: String,
-        user: String,
-        passworld: String,
-        isTry: Boolean
-    ) {
+    private fun mountSamba(ip: String, user: String, passworld: String, isTry: Boolean) {
 //        lifecycleScope.launch(Dispatchers.IO) {
 //            withContext(Dispatchers.Main) {
 //
