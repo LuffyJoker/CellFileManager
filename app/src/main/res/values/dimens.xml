@@ -23,6 +23,7 @@
     <!--    <dimen name="button_text_size">30px</dimen>-->
 
     <dimen name="tablayout_text_size">16sp</dimen>
+    <dimen name="item_radius">4px</dimen>
 
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>

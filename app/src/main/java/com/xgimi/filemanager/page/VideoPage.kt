@@ -121,69 +121,79 @@ class VideoPage(
     }
 
     private fun initCellView(data: List<Any>?) {
-        var his = data?.filter {
-            (it as BaseData).videoType == 0
-        }
-        if (!his.isNullOrEmpty()) {
-            // 历史记录
-            root.addCell(
-                Cell(
-                    TextComponent()
-                        .setText(getString(R.string.video_recent_history))
-                        .setStyle(R.style.font_body_bold_4)
-                ),
-                LinearLayout.Params(112, 28, Gravity.LEFT)
-            )
-            var historyContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 10))
 
-            his?.forEachIndexed { _, any ->
-                historyContainer.addCell(
-                    CellCreateHelper.getItemCell(
-                        any,
-                        onClickListener,
-                        longPressListener
+        if (data.isNullOrEmpty()) { // 空数据
+            root.addCell(
+                CellCreateHelper.textCell(
+                    context.resources.getString(R.string.empty),
+                    R.style.font_crosshead_medium_2
+                )
+            )
+        } else {
+            var his = data?.filter {
+                (it as BaseData).videoType == 0
+            }
+            if (!his.isNullOrEmpty()) {
+                // 历史记录
+                root.addCell(
+                    Cell(
+                        TextComponent()
+                            .setText(getString(R.string.video_recent_history))
+                            .setStyle(R.style.font_body_bold_4)
+                    ),
+                    LinearLayout.Params(112, 28, Gravity.LEFT)
+                )
+                var historyContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 10))
+
+                his?.forEachIndexed { _, any ->
+                    historyContainer.addCell(
+                        CellCreateHelper.getItemCell(
+                            any,
+                            onClickListener,
+                            longPressListener
+                        )
                     )
+                }
+                root.addCell(
+                    historyContainer,
+                    LinearLayout.Params(
+                        LinearLayout.Params.FULL,
+                        LinearLayout.Params.WRAP
+                    ).setMarginTop(48)
                 )
             }
-            root.addCell(
-                historyContainer,
-                LinearLayout.Params(
-                    LinearLayout.Params.FULL,
-                    LinearLayout.Params.WRAP
-                ).setMarginTop(48)
-            )
-        }
 
-        var local = data?.filter {
-            (it as BaseData).videoType == 2
-        }
-        if (!local.isNullOrEmpty()) {
-            // 本地影片
-            root.addCell(
-                Cell(
-                    TextComponent().setText(getString(R.string.video_all_video))
-                        .setStyle(R.style.font_body_bold_4)
-                ),
-                LinearLayout.Params(112, 28, Gravity.LEFT).setMarginTop(96)
-            )
+            var local = data?.filter {
+                (it as BaseData).videoType == 2
+            }
+            if (!local.isNullOrEmpty()) {
+                // 本地影片
+                root.addCell(
+                    Cell(
+                        TextComponent().setText(getString(R.string.video_all_video))
+                            .setStyle(R.style.font_body_bold_4)
+                    ),
+                    LinearLayout.Params(112, 28, Gravity.LEFT).setMarginTop(96)
+                )
 
-            var localContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 48))
+                var localContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 48))
 
-            local?.forEachIndexed { _, any ->
-                localContainer.addCell(
-                    CellCreateHelper.getItemCell(
-                        any,
-                        onClickListener,
-                        longPressListener
+                local?.forEachIndexed { _, any ->
+                    localContainer.addCell(
+                        CellCreateHelper.getItemCell(
+                            any,
+                            onClickListener,
+                            longPressListener
+                        )
                     )
+                }
+                root.addCell(
+                    localContainer, LinearLayout.Params(
+                        LinearLayout.Params.FULL,
+                        LinearLayout.Params.WRAP
+                    ).setMarginTop(48)
                 )
             }
-            root.addCell(
-                localContainer, LinearLayout.Params(
-                    LinearLayout.Params.FULL,
-                    LinearLayout.Params.WRAP
-                ).setMarginTop(48)
-            )
         }
     }
 

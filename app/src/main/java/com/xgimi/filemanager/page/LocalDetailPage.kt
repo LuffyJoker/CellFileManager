@@ -26,6 +26,7 @@ import com.xgimi.filemanager.searcher.LocalFileSearcher
 import com.xgimi.filemanager.utils.*
 import com.xgimi.view.cell.Cell
 import com.xgimi.view.cell.CellEvent
+import com.xgimi.view.cell.CellView
 import com.xgimi.view.cell.component.TextComponent
 import java.io.File
 import java.util.*
@@ -483,18 +484,32 @@ class LocalDetailPage(
     }
 
     private fun updateCellContainer(fileLists: ArrayList<BaseData>) {
-        if (!fileDetailCell.isEmpty) {
-            fileDetailCell.removeAllCells()
+
+        if (root.findCellByTag("fileListContainer") != null) {
+            root.removeCell(fileDetailCell)
         }
-        fileLists.forEachIndexed { _, baseData ->
-            fileDetailCell.addCell(
-                CellCreateHelper.getItemCell(
-                    baseData,
-                    onClickListener,
-                    longPressListener
+        if (root.findCellByTag("tips") != null) {
+            root.removeCell(emptyTips)
+        }
+
+
+        if (fileLists.isNullOrEmpty()) {
+            root.addCell(emptyTips)
+        } else {
+            root.addCell(fileDetailCell)
+            if (!fileDetailCell.isEmpty) {
+                fileDetailCell.removeAllCells()
+            }
+            fileLists.forEachIndexed { _, baseData ->
+                fileDetailCell.addCell(
+                    CellCreateHelper.getItemCell(
+                        baseData,
+                        onClickListener,
+                        longPressListener
+                    )
                 )
-            )
+            }
+            fileDetailCell.requestFocus()
         }
-        fileDetailCell.requestFocus()
     }
 }

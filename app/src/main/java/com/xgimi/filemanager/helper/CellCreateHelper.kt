@@ -10,13 +10,12 @@ import com.xgimi.filemanager.enums.FileCategory
 import com.xgimi.filemanager.menus.XgimiMenuItem
 import com.xgimi.gimiskin.cell.setStyle
 import com.xgimi.gimiskin.sdk.SkinEngine
+import com.xgimi.userbehavior.entity.setting.Focus
 import com.xgimi.view.cell.Cell
 import com.xgimi.view.cell.CellEvent
 import com.xgimi.view.cell.Layout
-import com.xgimi.view.cell.component.ColorComponent
-import com.xgimi.view.cell.component.FocusComponent
-import com.xgimi.view.cell.component.ImageComponent
-import com.xgimi.view.cell.component.TextComponent
+import com.xgimi.view.cell.component.*
+import com.xgimi.view.cell.layout.AbsoluteLayout
 import com.xgimi.view.cell.layout.FrameLayout
 import com.xgimi.view.cell.layout.Gravity
 import com.xgimi.view.cell.layout.LinearLayout
@@ -248,19 +247,16 @@ object CellCreateHelper {
     }
 
     private fun getButtonCell(text: String, onClickListener: CellEvent.OnClickListener): Cell {
-        return Cell().apply {
-            addComponent(
-                FocusComponent().setColorRes(R.color.color_brand_1).setStrokeWidth(-1f).setCorner(
-                    8f
+        return Cell()
+            .addComponent(
+                ColorComponent().setColorRes(R.color.color_bg_pure_1).setCorner(8f).setWithPadding(
+                    false
                 )
-            )
-            addCell(
-                Cell(
-                    TextComponent().setTextSize(28f).setText(text).setStyle(R.style.btn_commonly_medium_default)
-                ),
-                Layout.Params(Layout.Params.WRAP, Layout.Params.WRAP)
-            )
-        }.setFocusable(true).setPadding(32, 18, 32, 18)
+            ).setHolder(text)
+            .addComponent(FocusComponent().setColorRes(R.color.color_brand_1))
+            .addComponent(TextComponent().setTextSize(28f).setText(text).setStyle(R.style.btn_commonly_medium_default))
+            .setFocusable(true)
+            .setPadding(32, 18, 32, 18)
             .setOnClickListener(onClickListener)
     }
 
@@ -280,37 +276,50 @@ object CellCreateHelper {
                     TextComponent()
                         .setText(name)
                         .setStyle(R.style.font_crosshead_bold_3)
+                        .setGravity(Gravity.LEFT_CENTER)
                 ),
                 LinearLayout
-                    .Params(600, LinearLayout.Params.WRAP, Gravity.CENTER)
+                    .Params(LinearLayout.Params.WRAP, LinearLayout.Params.WRAP, Gravity.CENTER)
                     .setMarginLeft(16)
             )
 
             addCell(
-                getButtonCell(
-                    Utils.getApp().resources.getString(R.string.refresh),
-                    onClickListener
-                ),
-                LinearLayout
+                Cell(LinearLayout(LinearLayout.HORIZONTAL))
+                    .addCell(
+                        getButtonCell(
+                            Utils.getApp().resources.getString(R.string.refresh),
+                            onClickListener
+                        ),
+                        LinearLayout.Params(
+                            LinearLayout.Params.WRAP,
+                            LinearLayout.Params.WRAP,
+                            Gravity.RIGHT_CENTER
+                        )
+                    )
+                    .addCell(
+                        getButtonCell(
+                            Utils.getApp().resources.getString(R.string.manual_connect),
+                            onClickListener
+                        ),
+                        LinearLayout
+                            .Params(
+                                LinearLayout.Params.WRAP,
+                                LinearLayout.Params.WRAP,
+                                Gravity.RIGHT_CENTER
+                            )
+                            .setMargin(65, 0, 0, 0)
+                    ),
+                FrameLayout
                     .Params(
                         LinearLayout.Params.WRAP,
                         LinearLayout.Params.WRAP,
                         Gravity.RIGHT_CENTER
                     )
-            ).setHolder(Utils.getApp().resources.getString(R.string.refresh))
-            addCell(
-                getButtonCell(
-                    Utils.getApp().resources.getString(R.string.manual_connect),
-                    onClickListener
-                ),
-                LinearLayout
-                    .Params(
-                        LinearLayout.Params.WRAP,
-                        LinearLayout.Params.WRAP,
-                        Gravity.RIGHT_CENTER
-                    )
-                    .setMargin(65, 0, 52, 0)
-            ).setHolder(Utils.getApp().resources.getString(R.string.manual_connect))
+            )
         }
+    }
+
+    fun getProgressCell(): Cell {
+        return Cell(ProgressComponent2().setSize(ProgressComponent.SIZE_L))
     }
 }

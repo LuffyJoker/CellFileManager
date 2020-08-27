@@ -27,6 +27,7 @@ abstract class FileDetailPage(context: Activity) : BasePage(context) {
     }
 
     lateinit var fileDetailCell: Cell
+    lateinit var emptyTips: Cell
     var fileLists = ArrayList<BaseData>() //文件列表
 
     protected var isFirst = true
@@ -59,9 +60,12 @@ abstract class FileDetailPage(context: Activity) : BasePage(context) {
                 .setPadding(96)
                 .setMask(true)
                 .setFocusAdapter(SimpleFocusAdapter().serial(true, false, true, false))
+                .setTag("fileListContainer")
 
-        root.addCell(fileDetailCell)
-
+        emptyTips = CellCreateHelper.textCell(
+            context.resources.getString(R.string.empty),
+            R.style.font_crosshead_medium_2
+        ).setTag("tips")
     }
 
     abstract fun fillFileContent()

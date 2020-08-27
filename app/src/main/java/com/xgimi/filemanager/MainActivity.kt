@@ -82,15 +82,7 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun createCell() {
-
-    }
-
-    override fun initData() {
-
-    }
-
-    override fun initView(savedInstanceState: Bundle?) {
+    override fun initialized(arg0: Bundle?) {
         setEnableMenu(true)
         root = Cell(LinearLayout(LinearLayout.VERTICAL, true))
             .setLifeCycleListener(object : CellEvent.LifeCycleAdapter() {

@@ -2,8 +2,13 @@ package com.xgimi.filemanager.bean
 
 import com.xgimi.filemanager.enums.FileCategory
 import com.xgimi.filemanager.utils.FileCategoryUtil
+import com.xgimi.filemanager.utils.FileUtil
 import com.xgimi.samba.ShareItem
 import com.xgimi.samba.bean.CategoryBean
+import com.xgimi.samba.bean.ShareDisk
+import com.xgimi.samba.bean.ShareFile
+import com.xgimi.samba.constants.HttpHelper
+import com.xgimi.samba.tools.SmbUrlTools
 import java.io.File
 
 /**
@@ -98,7 +103,7 @@ class BaseData : CategoryBean {
 
     constructor()
 
-    val shareItem: ShareItem? = null
+    var shareItem: ShareItem? = null
 
     constructor(category: Int) {
         this.category = category
@@ -117,6 +122,39 @@ class BaseData : CategoryBean {
         this.parentPath = file.parent
         lastModified = file.lastModified()
     }
+
+
+    constructor(shareItem: ShareItem) {
+        this.shareItem = shareItem
+        sambaRowPath = shareItem.smbPath
+        val path: String = SmbUrlTools.convertToHttpUrl(
+            shareItem.smbPath,
+            HttpHelper.DEFAULT_IP,
+            HttpHelper.DEFAULT_SERVER_PORT
+        )
+        if (shareItem.isDirectory) {
+            category = FileCategory.Folder.ordinal
+            size = "-"
+        } else {
+            try {
+                size = FileUtil.formatFileSize((shareItem as ShareFile).getFileSize())
+            } catch (t: Throwable) {
+                t.printStackTrace()
+                size = "-"
+            }
+            category = FileCategoryUtil.getTypeByNameOrPath(path)
+        }
+        dataSources = 1
+        modifyTime = shareItem.changeTime
+        this.path = path
+        this.name = shareItem.name
+        lastModified = if (shareItem is ShareDisk) {
+            0
+        } else {
+            shareItem.lastAccessTime
+        }
+    }
+
 
     var isTitle = false
 

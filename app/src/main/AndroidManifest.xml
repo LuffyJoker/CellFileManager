@@ -31,7 +31,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".AddSambaDeviceActivity"></activity>
+        <activity android:name=".ConnectDeviceActivity"></activity>
+        <activity android:name=".ManulConnectToSambaActivity" />
+        <activity android:name=".SearchSambaDeviceActivity" />
         <activity android:name=".DlnaDetailActivity" />
         <activity android:name=".SambaDetailActivity" />
         <activity android:name=".UsbDetailActivity" />

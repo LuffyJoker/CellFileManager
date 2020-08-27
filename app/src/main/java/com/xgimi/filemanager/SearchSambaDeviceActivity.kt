@@ -1,17 +1,20 @@
 package com.xgimi.filemanager
 
 import android.os.Bundle
-import com.xgimi.filemanager.page.AddSambaDevicePage
+import com.xgimi.filemanager.page.SearchSambaDevicePage
 
-class AddSambaDeviceActivity : BaseActivity() {
+class SearchSambaDeviceActivity : BaseActivity() {
 
 
-    lateinit var page: AddSambaDevicePage
+    lateinit var page: SearchSambaDevicePage
 
-    override fun createCell() {
-        cellView.root = AddSambaDevicePage(this).apply {
+    override fun initialized(arg0: Bundle?) {
+
+        cellView.root = SearchSambaDevicePage(this).apply {
             page = this
         }.root
+
+        page.loadData()
 
 //        cellView?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
 //            override fun onGlobalLayout() {
@@ -19,14 +22,6 @@ class AddSambaDeviceActivity : BaseActivity() {
 //                cellView.root.requestFocus()
 //            }
 //        })
-    }
-
-    override fun initData() {
-        page.loadData()
-    }
-
-    override fun initView(savedInstanceState: Bundle?) {
-
     }
 
     override fun onDestroy() {
