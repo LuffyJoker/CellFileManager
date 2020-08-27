@@ -75,16 +75,11 @@ class PicturePage(
         const val DELAY = 1000L
     }
 
-    private val root: Cell by lazy {
-        Cell(LinearLayout(LinearLayout.VERTICAL)).setPadding(96, 96, 96, 0)
-    }
+    private val root: Cell = Cell(LinearLayout(LinearLayout.VERTICAL)).setPadding(96, 96, 96, 0)
 
     fun getRootCell(): Cell {
         return root
     }
-
-    //本地应用Adapter
-    private lateinit var deviceItemAdapter: CellDataBinding.UpdateAdapter<DeviceInfo>
 
     init {
         NAME = title
@@ -120,20 +115,33 @@ class PicturePage(
     }
 
     private fun initCellView(data: List<Any>?) {
-        var musicContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 10))
-        data?.forEachIndexed { _, any ->
-            musicContainer.addCell(
-                CellCreateHelper.getItemCell(
-                    any,
-                    onClickListener,
-                    longPressListener
+
+        if (data != null && data.isNotEmpty()) {
+            var musicContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 10))
+            data?.forEachIndexed { _, any ->
+                musicContainer.addCell(
+                    CellCreateHelper.getItemCell(
+                        any,
+                        onClickListener,
+                        longPressListener
+                    )
+                )
+            }
+            root.addCell(
+                musicContainer,
+                LinearLayout.Params(
+                    LinearLayout.Params.FULL,
+                    LinearLayout.Params.WRAP
+                ).setMarginTop(48)
+            )
+        } else {
+            root.addCell(
+                CellCreateHelper.textCell(
+                    context.resources.getString(R.string.empty),
+                    R.style.font_crosshead_medium_2
                 )
             )
         }
-        root.addCell(
-            musicContainer,
-            LinearLayout.Params(LinearLayout.Params.FULL, LinearLayout.Params.WRAP).setMarginTop(48)
-        )
     }
 
     override fun initMenus(): XgimiMenuItem? {

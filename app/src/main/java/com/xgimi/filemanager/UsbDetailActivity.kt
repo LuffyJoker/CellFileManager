@@ -32,11 +32,8 @@ class UsbDetailActivity : BaseActivity() {
 
     lateinit var page: LocalDetailPage
 
-    override fun initView(savedInstanceState: Bundle?) {
+    override fun initialized(arg0: Bundle?) {
         setEnableMenu(true)
-    }
-
-    override fun initData() {
         mRootPath = intent.getStringExtra(PATH)
         mDeviceName = intent.getStringExtra(NAME)
         mNotBack = intent.getBooleanExtra("NOTBACK", false)
@@ -46,10 +43,9 @@ class UsbDetailActivity : BaseActivity() {
             finish()
             return
         }
-        loadDeviceInfo()
-    }
 
-    override fun createCell() {
+        loadDeviceInfo()
+
         cellView.root = LocalDetailPage(this, mRootPath, mCurrentPath, mDeviceName).apply {
             page = this
         }.root
@@ -57,7 +53,8 @@ class UsbDetailActivity : BaseActivity() {
         // 初始化页面UI及数据
         page.initEventAndData()
 
-        cellView?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        cellView?.viewTreeObserver?.addOnGlobalLayoutListener(object :
+            ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 cellView?.viewTreeObserver?.removeOnGlobalLayoutListener(this)
                 cellView.root.requestFocus()

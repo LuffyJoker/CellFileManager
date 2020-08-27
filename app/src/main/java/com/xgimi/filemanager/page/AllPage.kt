@@ -31,9 +31,6 @@ import com.xgimi.filemanager.menus.XgimiMenuItem
 import com.xgimi.view.cell.Cell
 import com.xgimi.view.cell.CellDataBinding
 import com.xgimi.view.cell.CellEvent
-import com.xgimi.view.cell.Layout
-import com.xgimi.view.cell.component.TextComponent
-import com.xgimi.view.cell.layout.Gravity
 import com.xgimi.view.cell.layout.LinearLayout
 import rx.Observable
 import rx.functions.Action0
@@ -136,7 +133,7 @@ class AllPage(context: Activity) : BasePage(context), IDeviceChangeListener {
 //                    mChooseDeviceDialog = ChooseDeviceDialog(getActivity(), mHandler)
 //                    mChooseDeviceDialog.show()
                     val intent = Intent()
-                    intent.setClass(context, AddSambaDeviceActivity::class.java)
+                    intent.setClass(context, SearchSambaDeviceActivity::class.java)
                     startActivity(intent)
                 }
             }

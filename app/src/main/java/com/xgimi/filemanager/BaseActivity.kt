@@ -72,16 +72,11 @@ abstract class BaseActivity : IBaseActivity() {
         EventBus.getDefault().register(this)
         cellView.init(this)
         setContentView(cellView)
-        createCell()
-        initView(arg0)
-        initData()
+        initialized(arg0)
     }
 
-    abstract fun createCell()
+    abstract fun initialized(arg0: Bundle?)
 
-    abstract fun initData()
-
-    abstract fun initView(savedInstanceState: Bundle?)
 
     private fun registerBroadcast() {
         val intentFilter = IntentFilter("com.xgimi.mXgimiMenuView.mutex")

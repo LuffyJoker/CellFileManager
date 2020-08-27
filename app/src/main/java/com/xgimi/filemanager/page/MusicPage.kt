@@ -117,20 +117,30 @@ class MusicPage(
     }
 
     private fun initCellView(data: List<Any>?) {
-        var musicContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 10))
-        data?.forEachIndexed { _, any ->
-            musicContainer.addCell(
-                CellCreateHelper.getItemCell(
-                    any,
-                    onClickListener,
-                    longPressListener
+
+        if (data.isNullOrEmpty()) {
+            root.addCell(
+                CellCreateHelper.textCell(
+                    context.resources.getString(R.string.empty),
+                    R.style.font_crosshead_medium_2
                 )
             )
+        } else {
+            var musicContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 10))
+            data?.forEachIndexed { _, any ->
+                musicContainer.addCell(
+                    CellCreateHelper.getItemCell(
+                        any,
+                        onClickListener,
+                        longPressListener
+                    )
+                )
+            }
+            root.addCell(
+                musicContainer,
+                LinearLayout.Params(LinearLayout.Params.FULL, LinearLayout.Params.WRAP)
+            )
         }
-        root.addCell(
-            musicContainer,
-            LinearLayout.Params(LinearLayout.Params.FULL, LinearLayout.Params.WRAP)
-        )
     }
 
     override fun initMenus(): XgimiMenuItem? {

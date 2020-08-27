@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.xgimi.filemanager.views.BlurBgView
+        android:id="@+id/pl_blur_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:coverColor="@color/blur_cover_color"
+        app:radius="22"
+        app:scale="0.2" />
+
+    <RelativeLayout
+        android:id="@+id/v_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/connect_share_device"
+            android:textColor="@color/white"
+            android:textSize="30px" />
+
+        <EditText
+            android:id="@+id/pl_edit_first"
+            android:layout_width="440px"
+            android:layout_height="60px"
+            android:layout_below="@+id/title_des"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30px"
+            android:background="@drawable/view_btn_background_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:hint="@string/edittext_ip_address"
+            android:imeOptions="actionNext"
+            android:inputType="textVisiblePassword"
+            android:textColor="@color/textview_white_black_selector"
+            android:textColorHint="@color/white_50"
+            android:textSize="28px" />
+
+        <EditText
+            android:id="@+id/pl_edit_second"
+            android:layout_width="440px"
+            android:layout_height="60px"
+            android:layout_below="@+id/pl_edit_first"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20px"
+            android:background="@drawable/view_btn_background_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:hint="@string/edittext_user_name"
+            android:imeOptions="actionNext"
+            android:inputType="textVisiblePassword"
+            android:textColor="@color/textview_white_black_selector"
+            android:textColorHint="@color/white_50"
+            android:textSize="28px" />
+
+        <EditText
+            android:id="@+id/pl_edit_third"
+            android:layout_width="440px"
+            android:layout_height="60px"
+            android:layout_below="@+id/pl_edit_second"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20px"
+            android:background="@drawable/view_btn_background_selector"
+            android:focusable="true"
+            android:gravity="center"
+            android:hint="@string/edittext_passward"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:textColor="@color/textview_white_black_selector"
+            android:textColorHint="@color/white_50"
+            android:textSize="28px" />
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

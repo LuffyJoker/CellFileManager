@@ -252,8 +252,8 @@ object MediaOpenUtil {
         if (current.shareItem != null) {
             try {
                 helper = FileOperationHelper(context, null)
-                val videoName = current.shareItem.name
-                    .substring(0, current.shareItem.name.lastIndexOf('.'))
+                val videoName = current.shareItem!!.name
+                    .substring(0, current.shareItem!!.name.lastIndexOf('.'))
                 for (data in fileLists!!) {
                     val fileName = data.shareItem!!.name
                     if (fileName.contains(videoName) &&
@@ -263,7 +263,7 @@ object MediaOpenUtil {
                         || fileName.endsWith("ass")
                         || fileName.endsWith("smi")
                     ) {
-                        helper.pasteSambaSubtitle(data.shareItem, SAMBA_SUBTITLE_HOME)
+                        helper.pasteSambaSubtitle(data.shareItem!!, SAMBA_SUBTITLE_HOME)
                     }
                 }
                 //                helper = new FileOperationHelper(context, null);
