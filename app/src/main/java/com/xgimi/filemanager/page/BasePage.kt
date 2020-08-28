@@ -2,16 +2,27 @@ package com.xgimi.filemanager.page
 
 import android.app.Activity
 import android.content.Intent
+import com.xgimi.dialog.BaseDialog
+import com.xgimi.dialog.ext.baseDialog
 import com.xgimi.filemanager.FileSearchActivity
 import com.xgimi.filemanager.R
 import com.xgimi.filemanager.bean.BaseData
+import com.xgimi.filemanager.bean.CatalogInfo
+import com.xgimi.filemanager.bean.DeviceInfo
 import com.xgimi.filemanager.bean.GMUIOperation
 import com.xgimi.filemanager.config.LayoutType
 import com.xgimi.filemanager.config.OperationConfigure
+import com.xgimi.filemanager.constants.Constants
 import com.xgimi.filemanager.filehelper.OperationEvent
 import com.xgimi.filemanager.helper.IntentBuilder
 import com.xgimi.filemanager.listerners.OnFileItemClickListener
 import com.xgimi.filemanager.menus.XgimiMenuItem
+import com.xgimi.samba.bean.CategoryBean
+import com.xgimi.samba.bean.ShareDisk
+import com.xgimi.view.cell.Cell
+import com.xgimi.view.cell.layout.LinearLayout
+import com.xgimi.view.cell.utils.SimpleFocusAdapter
+import java.io.File
 import java.util.*
 
 /**
@@ -21,6 +32,15 @@ import java.util.*
  *    desc   :
  */
 abstract class BasePage(context: Activity) : FileOperationPage(context) {
+
+
+    // 文件列表容器
+    var fileDetailCell =
+        Cell(LinearLayout(LinearLayout.VERTICAL, Constants.GROUP_SIZE, 72, 8))
+            .setPadding(96)
+            .setMask(true)
+            .setFocusAdapter(SimpleFocusAdapter().serial(true, false, true, false))
+            .setTag("fileListContainer")
 
     //当前页面是否选中显示
     var isSelectedTab = false
@@ -131,7 +151,7 @@ abstract class BasePage(context: Activity) : FileOperationPage(context) {
                 val intent = Intent()
                 intent.setClass(context, FileSearchActivity::class.java)
                 intent.putExtra("SearchType", getCategory())
-                intent.putExtra("RootPath", getCurrentPath())
+                intent.putExtra("RootPath", currentPath)
                 startActivity(intent)
             }
             OperationEvent.CutMode -> {
@@ -239,9 +259,8 @@ abstract class BasePage(context: Activity) : FileOperationPage(context) {
      *
      * @return
      */
-    protected open fun getGMUIOperation(): List<GMUIOperation>? {
-        val mOperations: MutableList<GMUIOperation> =
-            ArrayList<GMUIOperation>()
+    protected open fun getGMUIOperation(): MutableList<GMUIOperation> {
+        val mOperations = mutableListOf<GMUIOperation>()
         mOperations.add(GMUIOperation(OperationEvent.CutMode, getString(R.string.cut)))
         mOperations.add(GMUIOperation(OperationEvent.CopyMode, getString(R.string.copy)))
         mOperations.add(GMUIOperation(OperationEvent.DelFile, getString(R.string.delfile)))
@@ -274,5 +293,77 @@ abstract class BasePage(context: Activity) : FileOperationPage(context) {
     open fun changeLayoutType(layoutType: Int) {
         //todo 改变显示模式
     }
+
+    /**
+     * 显示编辑界面
+     *
+     * @param data
+     */
+    open fun showOperationMenu(data: Any) {
+        var name: String? = ""
+        var isFile = false
+
+        when (data) {
+            data is BaseData -> {
+                name = (data as BaseData).name
+                val file = File(data.path)
+                isFile = file != null && file.exists() && file.isFile
+                if (data.shareItem is ShareDisk) {
+                    return
+                }
+            }
+            data is CategoryBean -> {
+                name = (data as CatalogInfo).name
+            }
+            data is DeviceInfo -> {
+                name = (data as DeviceInfo).deviceName
+            }
+        }
+
+        val operations = getGMUIOperation()
+
+        if (operations == null || operations.size == 0) {
+            return
+        }
+        if (isFile) {
+            operations.add(
+                GMUIOperation(
+                    OperationEvent.OpenMode,
+                    getString(R.string.file_operation_openas)
+                )
+            )
+        }
+
+        baseDialog(context) {
+            systemAlert = true
+            enableCancel = true
+            touchOutsideCancel = true
+        }.showOnWindow()
+
+//        mGMUIOperationDialogBuilder = GMUIOperationDialogBuilder(mContext)
+//            .setTitle(name)
+//            .setBlurBgView(getActivity().getWindow().getDecorView())
+//            .setOperationDatas(operations)
+//            .setOperationListener(object : OperbaseDialog(this.applicationContext) {
+//                systemAlert = true
+//                enableCancel = true
+//                touchOutsideCancel = true
+//            }.showOnWindow()ationListener() {
+//                fun onClick(dialog: GMUIDialog, operation: GMUIOperation) {
+//                    onMenuClicked(Menu(operation.mOperationType, operation.mStr))
+//                    if (operation.mOperationType !== OperationEvent.Rename) {
+//                        dialog.dismiss()
+//                    } else {
+//                        getActivity().getWindow().getDecorView()
+//                            .postDelayed(Runnable { dialog.dismiss() }, 1000)
+//                    }
+//                }
+//            })
+//        mGMUIOperationDialogBuilder.create(R.style.nullAnim_theme_dialog).show()
+//        if (data is BaseData) {
+//            showFileInfo(data.path)
+//        }
+    }
+
 
 }

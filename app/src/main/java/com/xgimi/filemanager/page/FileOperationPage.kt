@@ -22,6 +22,7 @@ import com.xgimi.filemanager.config.OperationConfigure
 import com.xgimi.filemanager.constants.Constants
 import com.xgimi.filemanager.event.Event
 import com.xgimi.filemanager.filehelper.OperationEvent
+import com.xgimi.filemanager.helper.CellCreateHelper
 import com.xgimi.filemanager.helper.FileOperationHelper
 import com.xgimi.filemanager.helper.ResourceHelper
 import com.xgimi.filemanager.interfaces.IOperationFile
@@ -31,6 +32,7 @@ import com.xgimi.filemanager.services.DeviceLoadService
 import com.xgimi.filemanager.utils.DocumentsUtil
 import com.xgimi.filemanager.utils.FileUtil
 import com.xgimi.samba.ShareItem
+import com.xgimi.view.cell.Cell
 import org.simple.eventbus.EventBus
 import rx.Subscription
 import rx.subscriptions.CompositeSubscription
@@ -48,6 +50,7 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
 
     companion object {
         private const val TAG = "FileOperationPage"
+
         /**
          * 弹窗消失延时，避免界面闪频
          */
@@ -55,14 +58,30 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
         const val MAX_CHARACTER = 255
     }
 
+
+    /**
+     * progress 组件
+     */
+    var progress: Cell = CellCreateHelper.getProgressCell().setTag("progress")
+
+    /**
+     * 空描述
+     */
+    var emptyTips: Cell = CellCreateHelper.textCell(
+        context.resources.getString(R.string.empty),
+        R.style.font_crosshead_medium_2
+    ).setTag("tips")
+
     /**
      * 根路径
      */
     var rootPath: String? = null
+
     /**
      * 当前路径
      */
-    private var currentPath: String? = null
+    var currentPath: String? = null
+
     /**
      * 粘贴弹窗
      */
@@ -80,6 +99,7 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
      * 选中等操作文件列表
      */
     var mOperationList = ArrayList<Any>()
+
     /**
      * 文件操作帮助类
      */
@@ -99,7 +119,9 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
      *
      * @param msg
      */
-    protected open fun handleMessageCallback(msg: Message) {}
+    protected open fun handleMessageCallback(msg: Message) {
+
+    }
 
     protected var NAME: String? = null
 
@@ -123,12 +145,8 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
                 override fun onRequestSuccess() {
                     refreshOperationPage()
                 }
-            }, getCurrentPath())
+            }, currentPath)
         }
-    }
-
-    open fun getCurrentPath(): String? {
-        return null
     }
 
     /**
@@ -352,7 +370,7 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
                 }
 
                 override fun onRequestFail() {}
-            }, getCurrentPath())
+            }, currentPath)
         }
     }
 
@@ -390,7 +408,7 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
                                         getFileOperationHelper()
                                     fileOperationHelper.deleteFiles(
                                         fileInfoList,
-                                        getCurrentPath()
+                                        currentPath
                                     )
                                 }
                             }
@@ -408,7 +426,7 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
                 }
 
                 override fun onRequestFail() {}
-            }, getCurrentPath())
+            }, currentPath)
         }
     }
 
@@ -422,7 +440,7 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
             ToastUtils.showShort(R.string.notice_copy_file)
             return
         }
-        val destDir = getCurrentPath()
+        val destDir = currentPath
         //判断当前磁盘是否可用
         if (StringUtils.isEmpty(destDir)) {
             ToastUtils.showShort(R.string.illegal_path)
@@ -637,7 +655,7 @@ abstract class FileOperationPage(var context: Activity) : IOperationFile, IOpera
      */
     override fun onCreateFile() {
         operationFile(OperationEvent.NewFile)
-        val destDir = getCurrentPath()
+        val destDir = currentPath
         if (destDir == null || "" == destDir) {
             ToastUtils.showShort(R.string.illegal_path)
             return

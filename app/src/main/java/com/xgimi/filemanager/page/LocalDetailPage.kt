@@ -56,6 +56,7 @@ class LocalDetailPage(
 
     init {
         rootPath = mRootPath
+        currentPath = mCurrentPath
     }
 
     /**
@@ -80,13 +81,9 @@ class LocalDetailPage(
         return mScanStack.isEmpty()
     }
 
-    override fun initEventAndData() {
-        super.initEventAndData()
+    override fun initialized() {
+        super.initialized()
         loadData()
-    }
-
-    override fun fillFileContent() {
-
     }
 
     override fun getTitle(): String = mDeviceName
@@ -98,11 +95,10 @@ class LocalDetailPage(
     }
 
     override fun handleMessageCallback(msg: Message) {
-        super.handleMessageCallback(msg)
         when (msg.what) {
             OnIOperationFinish -> {
                 val dest = msg.obj as String
-                if (!StringUtils.isEmpty(dest) && dest == getCurrentPath()) {
+                if (!StringUtils.isEmpty(dest) && dest == currentPath) {
                     updateList()
                 }
             }
@@ -390,7 +386,7 @@ class LocalDetailPage(
         }
     }
 
-    override fun getGMUIOperation(): List<GMUIOperation>? {
+    override fun getGMUIOperation(): MutableList<GMUIOperation> {
         if (isSamba()) {
             val mOperations: MutableList<GMUIOperation> =
                 ArrayList<GMUIOperation>()

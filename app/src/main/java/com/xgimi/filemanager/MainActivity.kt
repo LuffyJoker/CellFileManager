@@ -85,6 +85,7 @@ class MainActivity : BaseActivity() {
     override fun initialized(arg0: Bundle?) {
         setEnableMenu(true)
         root = Cell(LinearLayout(LinearLayout.VERTICAL, true))
+            .addComponent(ColorComponent().setColor(SkinEngine.getColor(R.color.color_bg_pure_0)))
             .setLifeCycleListener(object : CellEvent.LifeCycleAdapter() {
                 override fun onAttach(self: Cell) {
                     val fm = root.render.focusManager

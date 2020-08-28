@@ -1,3 +1,4 @@
+include ':dialog'
 include ':dlna'
 include ':samba'
 include ':samba'

@@ -3,10 +3,12 @@ package com.xgimi.filemanager.page
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Message
 import android.util.Log
 import android.view.KeyEvent
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
+import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.xgimi.dlna.proxy.AllShareProxy
 import com.xgimi.dlna.proxy.IDeviceChangeListener
@@ -17,24 +19,33 @@ import com.xgimi.filemanager.bean.DeviceInfo
 import com.xgimi.filemanager.bean.DeviceInfo.DeviceCategory
 import com.xgimi.filemanager.config.LayoutType
 import com.xgimi.filemanager.config.OperationConfigure
+import com.xgimi.filemanager.constants.Constants
 import com.xgimi.filemanager.constants.Constants.DEVICE_NAME
 import com.xgimi.filemanager.constants.Constants.DEVICE_TYPE
 import com.xgimi.filemanager.constants.Constants.DISPLAY_NAME
 import com.xgimi.filemanager.constants.Constants.GROUP_SIZE
 import com.xgimi.filemanager.constants.Constants.PATH
 import com.xgimi.filemanager.constants.Constants.ROOT_PATH_STR
+import com.xgimi.filemanager.dialog.SearchSambaDeviceDialog
+import com.xgimi.filemanager.event.Event
+import com.xgimi.filemanager.event.Event.Companion.CONNECT_TO_SAMBA
+import com.xgimi.filemanager.exceptions.ShareException
 import com.xgimi.filemanager.filehelper.OperationEvent
 import com.xgimi.filemanager.helper.CellCreateHelper
 import com.xgimi.filemanager.helper.MountHelper
 import com.xgimi.filemanager.helper.ResourceHelper
 import com.xgimi.filemanager.menus.XgimiMenuItem
+import com.xgimi.filemanager.samba.ShareClientController
 import com.xgimi.view.cell.Cell
 import com.xgimi.view.cell.CellDataBinding
 import com.xgimi.view.cell.CellEvent
 import com.xgimi.view.cell.layout.LinearLayout
+import org.simple.eventbus.Subscriber
+import org.simple.eventbus.ThreadMode
 import rx.Observable
 import rx.functions.Action0
 import rx.functions.Action1
+import rx.subscriptions.CompositeSubscription
 
 /**
  *    author : joker.peng
@@ -57,6 +68,11 @@ class AllPage(context: Activity) : BasePage(context), IDeviceChangeListener {
     private lateinit var mBroadcastFactory: DMSDeviceBrocastFactory
 
     /**
+     * 选择设备弹窗
+     */
+    private lateinit var mSearchSambaDeviceDialog: SearchSambaDeviceDialog
+
+    /**
      * 点击后缓存点击设备，用于刷新设备大小
      */
     private var mClickLocalDevice: DeviceInfo? = null
@@ -69,6 +85,20 @@ class AllPage(context: Activity) : BasePage(context), IDeviceChangeListener {
         const val TAG_FOCUS = "TAG_FOCUS"
         const val TAG_SHADOW = "TAG_SHADOW"
         const val DELAY = 1000L
+        private const val TAG = "AllPage"
+        val EXTRA_IP = "ip"
+
+        private const val ADD_DEVICE_CODE = 1001
+
+        /**
+         * 网络状态变化的 massage what
+         */
+        private const val NET_STATE_CHANGE = 9527
+
+        /**
+         * 更新 DLNA 的 massage what
+         */
+        private const val UPDATA_DLNA = 5799
     }
 
     private val root: Cell by lazy {
@@ -85,10 +115,87 @@ class AllPage(context: Activity) : BasePage(context), IDeviceChangeListener {
     private val longPressListener = object : CellEvent.OnLongPressListener {
         override fun onLongPress(cell: Cell, event: Int): Boolean {
             if (event == KeyEvent.KEYCODE_DPAD_CENTER) {
+
+                if (!OperationConfigure.isSelectOperationMode) {
+                    showOperationMenu(cell.holder)
+                }
+
                 return true
             }
             return false
         }
+    }
+
+    override fun handleMessageCallback(msg: Message) {
+        super.handleMessageCallback(msg)
+        when (msg.what) {
+            Constants.ToConnectSamba ->                 //如果ip不为空尝试自动连接
+                if (msg.obj != null) {
+                    LogUtils.i("JSmb", "try to mount")
+                    mountSamba(msg.obj as String, "", "", true)
+                } else {
+                    showAddDeviceView(null)
+                }
+//            UPDATA_DLNA -> updateDlnaDeviceList()
+//            NET_STATE_CHANGE -> {
+//                if (msg.arg1 == 0) {
+//                    //无网络
+//                    val sambaDevices: MutableList<DeviceInfo> = ArrayList()
+//                    for (deviceInfo in deviceDataList) {
+//                        if (deviceInfo.deviceType == DeviceCategory.Samba.ordinal) {
+//                            sambaDevices.add(deviceInfo)
+//                        }
+//                    }
+//                    for (deviceInfo in sambaDevices) {
+//                        deviceDataList.remove(deviceInfo)
+//                    }
+//
+//                    if (deviceDataList != null && deviceDataList.size > 0) {
+//                        Collections.sort(deviceDataList, Comparators.getForDevice())
+//                        LogUtils.e(TAG, "handleMessageCallback to setDatas")
+//                        initDeviceListCellView(deviceDataList)
+//                    }
+//                } else if (msg.arg1 == 1) {
+//                    // 有网
+//                    initSambaDevice()
+//                }
+//                updateSambaNoticeView()
+//            }
+            else -> {
+            }
+        }
+
+    }
+
+    /**
+     * 更新samba连接提示
+     */
+    private fun updateSambaNoticeView() {
+//        //网络未连接
+//        if (!NetworkUtils.isConnected()) {
+//            mExtraHintTextView.setVisibility(View.GONE)
+//            return
+//        }
+//        //是否打开共享
+//        if (SambaServiceController.isSupport() && mSambaServiceController.isOpenSamba()) {
+//            val ip: String = NetUtil.getLocalIpAddress(getContext())
+//            Log.e(
+//                com.xgimi.filemanager.newfragment.DeviceFragment.TAG,
+//                "change ip=$ip"
+//            )
+//            mExtraHintTextView.setText(
+//                mContext.getResources().getString(R.string.device_notice_open)
+//                    .toString() + "\\\\" + ip
+//            )
+//            mExtraHintTextView.setVisibility(View.VISIBLE)
+//        } else {
+//            Log.e(
+//                com.xgimi.filemanager.newfragment.DeviceFragment.TAG,
+//                "isOpenSamba=false"
+//            )
+//            mExtraHintTextView.setText("")
+//            mExtraHintTextView.setVisibility(View.GONE)
+//        }
     }
 
     private val onClickListener: CellEvent.OnClickListener =
@@ -130,11 +237,8 @@ class AllPage(context: Activity) : BasePage(context), IDeviceChangeListener {
                 if (!NetworkUtils.isConnected()) {
                     ToastUtils.showShort(R.string.please_link_network)
                 } else {
-//                    mChooseDeviceDialog = ChooseDeviceDialog(getActivity(), mHandler)
-//                    mChooseDeviceDialog.show()
-                    val intent = Intent()
-                    intent.setClass(context, SearchSambaDeviceActivity::class.java)
-                    startActivity(intent)
+                    mSearchSambaDeviceDialog = SearchSambaDeviceDialog(context, mHandler)
+                    mSearchSambaDeviceDialog.show()
                 }
             }
         }
@@ -323,4 +427,77 @@ class AllPage(context: Activity) : BasePage(context), IDeviceChangeListener {
         intent.putExtra("NAME", info.deviceName)
         startActivity(intent)
     }
+
+    /**
+     * 挂载 samba
+     *
+     * @param ip
+     * @param user
+     * @param passWorld
+     */
+    private fun mountSamba(ip: String, user: String, passWorld: String, isTry: Boolean = false) {
+        LogUtils.i("挂在samba设备")
+        if (mCompositeSubscription != null && mCompositeSubscription!!.isUnsubscribed) {
+            mCompositeSubscription!!.unsubscribe()
+        }
+        mCompositeSubscription = ShareClientController
+            .signInSamba(ip, user, passWorld)?.subscribe({ sambaDevice ->
+                ToastUtils.showShort(R.string.mount_samba_success)
+                // samba 登录成功，添加samba设备到列表中
+
+
+
+
+
+                if (mSearchSambaDeviceDialog != null) {
+                    mSearchSambaDeviceDialog.dismiss()
+                }
+            }, { throwable ->
+
+                if (isTry) {
+                    showAddDeviceView(ip)
+                    return@subscribe
+                }
+                var errorCode = 0
+                if (throwable is ShareException) {
+                    errorCode = throwable.code
+                }
+                when (errorCode) {
+                    ShareClientController.STATUS_LOGON_FAILURE -> {
+                        ToastUtils.showShort(R.string.login_pwd_wrong)
+                    }
+                    ShareClientController.STATUS_CONNECT_TIMEOUT -> {
+                        ToastUtils.showShort(R.string.connect_timeout)
+                    }
+                    else -> {
+                        ToastUtils.showShort(R.string.login_samba_failure)
+                    }
+                }
+            }) as CompositeSubscription?
+    }
+
+    /**
+     * 显示添加设备界面
+     *
+     * @param ip
+     */
+    private fun showAddDeviceView(ip: String?) {
+        val intent = Intent(context, ConnectDeviceActivity::class.java)
+        intent.putExtra(EXTRA_IP, ip)
+        context.startActivityForResult(intent, ADD_DEVICE_CODE)
+    }
+
+    @Subscriber(tag = CONNECT_TO_SAMBA, mode = ThreadMode.MAIN)
+    fun connectToSamba(normal: Event.Normal) {
+        //如果ip不为空尝试自动连接
+        if (normal.str0 != null) {
+            mountSamba(normal.str0 as String, "", "", true)
+        } else {
+            showAddDeviceView(null)
+        }
+
+
+    }
+
+
 }

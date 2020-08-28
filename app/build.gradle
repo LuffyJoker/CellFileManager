@@ -92,6 +92,7 @@ dependencies {
     implementation project(path: ':samba')
     implementation project(path: ':dlna')
     implementation files('libs\\storage.jar')
+    implementation project(path: ':dialog')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

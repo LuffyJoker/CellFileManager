@@ -1,6 +1,8 @@
 package com.xgimi.filemanager.page
 
 import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -10,30 +12,32 @@ import com.xgimi.dlna.proxy.AllShareProxy
 import com.xgimi.dlna.proxy.IDeviceChangeListener
 import com.xgimi.dlna.upnp.DMSDeviceBrocastFactory
 import com.xgimi.dlna.upnp.Device
+import com.xgimi.filemanager.FileManagerApplication
 import com.xgimi.filemanager.R
 import com.xgimi.filemanager.bean.BaseData
+import com.xgimi.filemanager.bean.CatalogInfo
 import com.xgimi.filemanager.bean.DeviceInfo
 import com.xgimi.filemanager.config.DisplayMode
 import com.xgimi.filemanager.config.OperationConfigure
+import com.xgimi.filemanager.constants.Constants
 import com.xgimi.filemanager.contentprovider.MediaContentObserver.ContentObserverListener
 import com.xgimi.filemanager.enums.FileCategory
 import com.xgimi.filemanager.filehelper.OperationEvent
-import com.xgimi.filemanager.helper.CellCreateHelper
-import com.xgimi.filemanager.helper.Comparators
-import com.xgimi.filemanager.helper.MountHelper
-import com.xgimi.filemanager.helper.ResourceHelper
+import com.xgimi.filemanager.helper.*
 import com.xgimi.filemanager.listerners.OnFileItemClickListener
 import com.xgimi.filemanager.listerners.OnItemSelectedListener
 import com.xgimi.filemanager.menus.XgimiMenuItem
 import com.xgimi.filemanager.prenster.CategoryDataProxy
+import com.xgimi.filemanager.utils.MediaOpenUtil
 import com.xgimi.gimiskin.cell.setStyle
 import com.xgimi.view.cell.Cell
 import com.xgimi.view.cell.CellDataBinding
 import com.xgimi.view.cell.CellEvent
-import com.xgimi.view.cell.Layout
 import com.xgimi.view.cell.component.TextComponent
 import com.xgimi.view.cell.layout.Gravity
 import com.xgimi.view.cell.layout.LinearLayout
+import org.simple.eventbus.EventBus
+import java.util.*
 
 /**
  *    author : joker.peng
@@ -64,6 +68,8 @@ class VideoPage(
     private lateinit var mBroadcastFactory: DMSDeviceBrocastFactory
 
     private var mCategoryDataProxy: CategoryDataProxy
+
+    private var isPlayedRefresh = false
 
     companion object {
         private const val GROUP_SIZE = 6
@@ -108,7 +114,16 @@ class VideoPage(
     }
 
     private val onClickListener: CellEvent.OnClickListener = CellEvent.OnClickListener { p0 ->
-
+        if (getCategory() == FileCategory.Video.ordinal) {
+            isPlayedRefresh = true
+        }
+        var item = p0.holder
+        if (item is BaseData) {
+            FileManagerApplication.getInstance().reportFileCevent(item.path!!)
+            if (item.category == FileCategory.Video.ordinal) {
+                MediaOpenUtil.playVideo(context, item, item.path!!)
+            }
+        }
     }
 
     private val longPressListener = object : CellEvent.OnLongPressListener {
@@ -143,7 +158,7 @@ class VideoPage(
                     ),
                     LinearLayout.Params(112, 28, Gravity.LEFT)
                 )
-                var historyContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 10))
+                var historyContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 8))
 
                 his?.forEachIndexed { _, any ->
                     historyContainer.addCell(
@@ -176,7 +191,7 @@ class VideoPage(
                     LinearLayout.Params(112, 28, Gravity.LEFT).setMarginTop(96)
                 )
 
-                var localContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 48))
+                var localContainer = Cell(LinearLayout(LinearLayout.VERTICAL, GROUP_SIZE, 72, 8))
 
                 local?.forEachIndexed { _, any ->
                     localContainer.addCell(

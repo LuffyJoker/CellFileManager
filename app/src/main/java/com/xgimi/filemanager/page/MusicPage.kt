@@ -1,6 +1,9 @@
 package com.xgimi.filemanager.page
 
 import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.os.Message
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -10,22 +13,24 @@ import com.xgimi.dlna.proxy.AllShareProxy
 import com.xgimi.dlna.proxy.IDeviceChangeListener
 import com.xgimi.dlna.upnp.DMSDeviceBrocastFactory
 import com.xgimi.dlna.upnp.Device
+import com.xgimi.filemanager.CategoryDetailActivity
+import com.xgimi.filemanager.FileManagerApplication
 import com.xgimi.filemanager.R
 import com.xgimi.filemanager.bean.BaseData
+import com.xgimi.filemanager.bean.CatalogInfo
 import com.xgimi.filemanager.bean.DeviceInfo
 import com.xgimi.filemanager.config.DisplayMode
 import com.xgimi.filemanager.config.OperationConfigure
+import com.xgimi.filemanager.constants.Constants
 import com.xgimi.filemanager.contentprovider.MediaContentObserver
 import com.xgimi.filemanager.enums.FileCategory
 import com.xgimi.filemanager.filehelper.OperationEvent
-import com.xgimi.filemanager.helper.CellCreateHelper
-import com.xgimi.filemanager.helper.Comparators
-import com.xgimi.filemanager.helper.MountHelper
-import com.xgimi.filemanager.helper.ResourceHelper
+import com.xgimi.filemanager.helper.*
 import com.xgimi.filemanager.listerners.OnFileItemClickListener
 import com.xgimi.filemanager.listerners.OnItemSelectedListener
 import com.xgimi.filemanager.menus.XgimiMenuItem
 import com.xgimi.filemanager.prenster.CategoryDataProxy
+import com.xgimi.filemanager.utils.MediaOpenUtil
 import com.xgimi.gimiskin.cell.setStyle
 import com.xgimi.view.cell.Cell
 import com.xgimi.view.cell.CellDataBinding
@@ -34,6 +39,8 @@ import com.xgimi.view.cell.Layout
 import com.xgimi.view.cell.component.TextComponent
 import com.xgimi.view.cell.layout.Gravity
 import com.xgimi.view.cell.layout.LinearLayout
+import org.simple.eventbus.EventBus
+import java.util.ArrayList
 
 /**
  *    author : joker.peng
@@ -104,7 +111,24 @@ class MusicPage(
     }
 
     private val onClickListener: CellEvent.OnClickListener = CellEvent.OnClickListener { p0 ->
-
+        var item = p0.holder
+        if (item is BaseData) {
+            FileManagerApplication.getInstance().reportFileCevent(item.path!!)
+            if (item.category == FileCategory.Music.ordinal) {
+                val baseDataList = mutableListOf<BaseData>()
+                baseDataList.add(item)
+                MediaOpenUtil.playMusicList(context, baseDataList, item)
+            }
+        } else if (item is CatalogInfo) {
+            val intent = Intent()
+            intent.setClass(context, CategoryDetailActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString(Constants.PARENT_DIR_NAME, item.name)
+            EventBus.getDefault().postSticky(item.datas, Constants.CATEGORY_DATA)
+            bundle.putInt(Constants.CATEGORY, getCategory())
+            intent.putExtra(Constants.CATEGORY_DATA, bundle)
+            startActivity(intent)
+        }
     }
 
     private val longPressListener = object : CellEvent.OnLongPressListener {
@@ -234,6 +258,7 @@ class MusicPage(
         }
         return super.onMenuClicked(menu)
     }
+
 
     override fun onChange() {
         if (root.getCell(0).isVisible) {

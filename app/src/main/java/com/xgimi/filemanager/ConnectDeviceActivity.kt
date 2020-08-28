@@ -14,6 +14,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
@@ -70,8 +71,7 @@ class ConnectDeviceActivity : AppCompatActivity(), View.OnFocusChangeListener {
             if (!TextUtils.isEmpty(loaclip)) {
                 val ips = loaclip.split("\\.".toRegex()).toTypedArray()
                 if (ips.size == 4) {
-                    val str =
-                        ips[0] + "." + ips[1] + "." + ips[2] + "."
+                    val str = ips[0] + "." + ips[1] + "." + ips[2] + "."
                     pl_edit_first.setText(str)
                     pl_edit_first.setSelection(str.length)
                 }
@@ -152,8 +152,7 @@ class ConnectDeviceActivity : AppCompatActivity(), View.OnFocusChangeListener {
         }
     }
 
-    private val mEditorListener =
-        OnEditorActionListener { v, actionId, event ->
+    private val mEditorListener = OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (!NetworkUtils.isConnected()) {
                     ToastUtils.showShort(R.string.please_link_network)
@@ -169,6 +168,21 @@ class ConnectDeviceActivity : AppCompatActivity(), View.OnFocusChangeListener {
             false
         }
     private var connectSubscription: Subscription? = null
+    
+
+    val RESULT_CODE = 1000
+    val EXTRA_DEVICE = "device"
+    val EXTRA_IP = "ip"
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        if (hasFocus && v is EditText) {
+            val editText = v
+            val str = editText.text.toString()
+            if (!TextUtils.isEmpty(str)) {
+                editText.setSelection(str.length)
+            }
+        }
+    }
 
     /**
      * 挂载 samba
@@ -183,9 +197,14 @@ class ConnectDeviceActivity : AppCompatActivity(), View.OnFocusChangeListener {
             connectSubscription!!.unsubscribe()
         }
         connectSubscription = ShareClientController
-            .signInSamba(ip, user, passWorld)?.subscribe({ sambaDevice ->
+            .signInSamba(ip, user, passWorld)
+            ?.subscribe({ sambaDevice ->
                 LogUtils.i("JSmb", "mountSamba onSuccess")
-                ToastUtils.showShort(R.string.mount_samba_success)
+                Toast.makeText(
+                    this@ConnectDeviceActivity,
+                    R.string.mount_samba_success,
+                    Toast.LENGTH_SHORT
+                ).show()
                 val intent = Intent()
                 intent.putExtra(EXTRA_DEVICE, DeviceInfo(sambaDevice!!))
                 setResult(RESULT_CODE, intent)
@@ -197,30 +216,28 @@ class ConnectDeviceActivity : AppCompatActivity(), View.OnFocusChangeListener {
                 }
                 when (errorCode) {
                     ShareClientController.STATUS_LOGON_FAILURE -> {
-                        ToastUtils.showShort(R.string.login_pwd_wrong)
+                        Toast.makeText(
+                            this@ConnectDeviceActivity,
+                            R.string.login_pwd_wrong,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     ShareClientController.STATUS_CONNECT_TIMEOUT -> {
-                        ToastUtils.showShort(R.string.connect_timeout)
+                        Toast.makeText(
+                            this@ConnectDeviceActivity,
+                            R.string.connect_timeout,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     else -> {
-                        ToastUtils.showShort(R.string.login_samba_failure)
+                        Toast.makeText(
+                            this@ConnectDeviceActivity,
+                            R.string.login_samba_failure,
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             })
-    }
-
-    val RESULT_CODE = 1000
-    val EXTRA_DEVICE = "device"
-    val EXTRA_IP = "ip"
-
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        if (hasFocus && v is EditText) {
-            val editText = v
-            val str = editText.text.toString()
-            if (!TextUtils.isEmpty(str)) {
-                editText.setSelection(str.length)
-            }
-        }
     }
 
     override fun onDestroy() {

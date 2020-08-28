@@ -295,7 +295,7 @@ object CellCreateHelper {
                             LinearLayout.Params.WRAP,
                             Gravity.RIGHT_CENTER
                         )
-                    )
+                    ).requestFocus()
                     .addCell(
                         getButtonCell(
                             Utils.getApp().resources.getString(R.string.manual_connect),

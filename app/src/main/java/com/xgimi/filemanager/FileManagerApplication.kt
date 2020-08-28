@@ -52,8 +52,8 @@ class FileManagerApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        GlobalConfig.SHOW_BORDER = Color.RED
-        GlobalConfig.SHOW_CONTENT = Color.BLUE
+//        GlobalConfig.SHOW_BORDER = Color.RED
+//        GlobalConfig.SHOW_CONTENT = Color.BLUE
         INSTANCE = this
         initEngine(this)
         Utils.init(this)

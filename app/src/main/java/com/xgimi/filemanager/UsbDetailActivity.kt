@@ -51,7 +51,7 @@ class UsbDetailActivity : BaseActivity() {
         }.root
 
         // 初始化页面UI及数据
-        page.initEventAndData()
+        page.initialized()
 
         cellView?.viewTreeObserver?.addOnGlobalLayoutListener(object :
             ViewTreeObserver.OnGlobalLayoutListener {
@@ -122,15 +122,6 @@ class UsbDetailActivity : BaseActivity() {
                 hideMenu()
             }
         })
-//        mXgimiMenuView.setXgimiMenuListener(object : XgimiMenuListener {
-//            fun onMenuStartShowing() {
-//                mLocalDetailFragment.setMenuState(true)
-//            }
-//
-//            fun onMenuStartHiding() {
-//                mLocalDetailFragment.setMenuState(false)
-//            }
-//        })
     }
 
     override fun onBackPressed() {

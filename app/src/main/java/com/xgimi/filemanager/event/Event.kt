@@ -16,6 +16,8 @@ class Event {
         val tag_Folder_Click = "tag_Folder_Click" //文件夹点击
 
         val tag_Unmount_Samba = "tag_Unmount_Samba"
+
+        const val CONNECT_TO_SAMBA = "connect_to_samba"
     }
 
     class Normal {

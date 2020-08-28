@@ -1,19 +1,18 @@
 package com.xgimi.filemanager.page
 
 import android.app.Activity
-import android.content.Intent
-import android.os.Message
+import android.os.Handler
 import android.view.KeyEvent
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.NetworkUtils
 import com.blankj.utilcode.util.StringUtils
 import com.blankj.utilcode.util.ToastUtils
-import com.xgimi.filemanager.ConnectDeviceActivity
 import com.xgimi.filemanager.R
 import com.xgimi.filemanager.bean.DeviceInfo
+import com.xgimi.filemanager.config.OperationConfigure
 import com.xgimi.filemanager.constants.Constants
+import com.xgimi.filemanager.event.Event
 import com.xgimi.filemanager.helper.CellCreateHelper
-import com.xgimi.filemanager.samba.ShareClientController
 import com.xgimi.gimiskin.sdk.SkinEngine.getColor
 import com.xgimi.samba.SmbDevice
 import com.xgimi.samba.search.SmbSearcher
@@ -24,6 +23,7 @@ import com.xgimi.view.cell.layout.FrameLayout
 import com.xgimi.view.cell.layout.Gravity
 import com.xgimi.view.cell.layout.LinearLayout
 import com.xgimi.view.cell.utils.SimpleFocusAdapter
+import org.simple.eventbus.EventBus
 
 /**
  *    author : joker.peng
@@ -31,23 +31,22 @@ import com.xgimi.view.cell.utils.SimpleFocusAdapter
  *    date   : 2020/8/22 11:44
  *    desc   :
  */
-class SearchSambaDevicePage(context: Activity) : BasePage(context),
+class SearchSambaDevicePage(context: Activity, mHandler: Handler) : BasePage(context),
     SmbSearcher.OnSmbSearchListener {
 
-    private val ADD_DEVICE_CODE = 1001
-    val EXTRA_IP = "ip"
-
-    val root: Cell = Cell(LinearLayout(LinearLayout.VERTICAL, true))
-    var container: Cell =
-        Cell(LinearLayout(LinearLayout.VERTICAL, Constants.GROUP_SIZE, 72, 8)).apply {
-            addComponent(ColorComponent().setColor(getColor(R.color.color_bg_pure_0)))
-        }.setPadding(96, 0, 96, 0)
-            .setMask(true)
+    val root: Cell = Cell(LinearLayout(LinearLayout.VERTICAL)).apply {
+        addComponent(ColorComponent().setColor(getColor(R.color.color_bg_pure_0)))
+    }
+    private var container: Cell =
+        Cell(LinearLayout(LinearLayout.VERTICAL, Constants.GROUP_SIZE, 72, 8))
+            .setPadding(96, 10, 96, 0)
             .setFocusAdapter(SimpleFocusAdapter().serial(true, false, true, false))
             .setTag("sambaDeviceContainer")
 
-    var noNet: Cell
-    var progress: Cell
+    private var noNet: Cell = CellCreateHelper.textCell(
+        context.resources.getString(R.string.network_notlink),
+        R.style.font_crosshead_medium_2
+    ).setTag("noNet")
 
     private val smbSearcher = SmbSearcher(context, this)
     private var isSearching = false
@@ -74,7 +73,10 @@ class SearchSambaDevicePage(context: Activity) : BasePage(context),
                 ToastUtils.showShort(R.string.please_link_network)
             } else {
                 // 手动连接
-                showAddDeviceView(null)
+                val msg = mHandler.obtainMessage()
+                msg.what = Constants.ToConnectSamba
+                msg.arg1 = 0
+                mHandler.sendMessage(msg)
             }
         }
     }
@@ -90,14 +92,6 @@ class SearchSambaDevicePage(context: Activity) : BasePage(context),
 
 
     init {
-
-        noNet = CellCreateHelper.textCell(
-            context.resources.getString(R.string.network_notlink),
-            R.style.font_crosshead_medium_2
-        ).setTag("noNet")
-
-        progress = CellCreateHelper.getProgressCell().setTag("progress")
-
         root.addCell(
             CellCreateHelper.getTitleCell(
                 context.resources.getString(R.string.add_network_device),
@@ -107,7 +101,7 @@ class SearchSambaDevicePage(context: Activity) : BasePage(context),
                 LinearLayout.Params.FULL,
                 LinearLayout.Params.WRAP,
                 Gravity.TOP
-            ).setMargin(96, 96, 96, 0)
+            ).setMargin(96, 86, 96, 0)
         )
 
         root.addCell(
@@ -164,15 +158,15 @@ class SearchSambaDevicePage(context: Activity) : BasePage(context),
                             CellEvent.OnClickListener {
                                 if (it.holder is DeviceInfo) {
                                     val ip = (it.holder as DeviceInfo).ip
-                                    LogUtils.i("JSmb", "try to mount")
-//                                    mountSamba(ip, "", "", true)
-                                    ShareClientController.signInSamba(ip,"","")
-
+                                    EventBus.getDefault()
+                                        .post(Event.Normal(ip), Event.CONNECT_TO_SAMBA)
                                 }
                             },
                             CellEvent.OnLongPressListener { p0, p1 ->
 
-
+                                if (!OperationConfigure.isSelectOperationMode) {
+                                    showOperationMenu(p0.holder)
+                                }
                                 false
                             },
                             false
@@ -195,19 +189,6 @@ class SearchSambaDevicePage(context: Activity) : BasePage(context),
         })
     }
 
-    /**
-     * 显示添加设备界面
-     *
-     * @param ip
-     */
-    private fun showAddDeviceView(ip: String?) {
-        val intent = Intent(context, ConnectDeviceActivity::class.java)
-        intent.putExtra(EXTRA_IP, ip)
-        context.startActivityForResult(
-            intent,
-            ADD_DEVICE_CODE
-        )
-    }
 
     fun stop() {
         smbSearcher.stop()

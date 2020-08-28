@@ -3,6 +3,7 @@ package com.xgimi.filemanager.page
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Message
 import android.view.KeyEvent
 import android.view.View
 import com.blankj.utilcode.util.LogUtils
@@ -12,8 +13,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.xgimi.dlna.proxy.AllShareProxy
 import com.xgimi.dlna.upnp.DMSDeviceBrocastFactory
 import com.xgimi.filemanager.DlnaDetailActivity
+import com.xgimi.filemanager.FileManagerApplication
 import com.xgimi.filemanager.R
 import com.xgimi.filemanager.UsbDetailActivity
+import com.xgimi.filemanager.bean.BaseData
+import com.xgimi.filemanager.bean.CatalogInfo
 import com.xgimi.filemanager.bean.DeviceInfo
 import com.xgimi.filemanager.config.DisplayMode
 import com.xgimi.filemanager.config.OperationConfigure
@@ -23,16 +27,19 @@ import com.xgimi.filemanager.enums.FileCategory
 import com.xgimi.filemanager.filehelper.OperationEvent
 import com.xgimi.filemanager.helper.CellCreateHelper
 import com.xgimi.filemanager.helper.Comparators
+import com.xgimi.filemanager.helper.IntentBuilder
 import com.xgimi.filemanager.listerners.OnFileItemClickListener
 import com.xgimi.filemanager.listerners.OnItemSelectedListener
 import com.xgimi.filemanager.menus.XgimiMenuItem
 import com.xgimi.filemanager.prenster.CategoryDataProxy
+import com.xgimi.filemanager.utils.MediaOpenUtil
 import com.xgimi.view.cell.Cell
 import com.xgimi.view.cell.CellEvent
 import com.xgimi.view.cell.Layout
 import com.xgimi.view.cell.component.TextComponent
 import com.xgimi.view.cell.layout.Gravity
 import com.xgimi.view.cell.layout.LinearLayout
+import java.util.ArrayList
 
 /**
  *    author : joker.peng
@@ -103,7 +110,13 @@ class DocPage(
     }
 
     private val onClickListener: CellEvent.OnClickListener = CellEvent.OnClickListener { p0 ->
-
+        var item = p0.holder
+        if (item is BaseData) {
+            FileManagerApplication.getInstance().reportFileCevent(item.path!!)
+            if (item.category == FileCategory.Document.ordinal) {
+                IntentBuilder.viewFile(context, item.path!!)
+            }
+        }
     }
 
     private val longPressListener = object : CellEvent.OnLongPressListener {

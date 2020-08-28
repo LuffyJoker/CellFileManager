@@ -26,18 +26,18 @@ abstract class FileDetailPage(context: Activity) : BasePage(context) {
         Cell(LinearLayout(LinearLayout.VERTICAL, true))
     }
 
-    lateinit var fileDetailCell: Cell
-    lateinit var emptyTips: Cell
     var fileLists = ArrayList<BaseData>() //文件列表
 
     protected var isFirst = true
     var isLoadData = false
 
-    open fun initEventAndData() {
+    open fun initialized() {
         initHeaderView()
     }
 
+    // 初始化页面公共元素
     private fun initHeaderView() {
+        // 右上角提示
         root.addCell(
             CellCreateHelper.textCell(
                 getString(R.string.file_header_notice_pre),
@@ -46,6 +46,7 @@ abstract class FileDetailPage(context: Activity) : BasePage(context) {
             LinearLayout.Params(656, 28, Gravity.RIGHT_TOP).setMargin(0, 30, 96, 0)
         )
 
+        // 路径
         root.addCell(
             CellCreateHelper.getPathCell(getTitle(), getPath(), R.style.font_crosshead_bold_3),
             LinearLayout.Params(
@@ -55,20 +56,7 @@ abstract class FileDetailPage(context: Activity) : BasePage(context) {
             ).setMarginLeft(96).setMarginTop(50)
         )
 
-        fileDetailCell =
-            Cell(LinearLayout(LinearLayout.VERTICAL, Constants.GROUP_SIZE, 72, 8))
-                .setPadding(96)
-                .setMask(true)
-                .setFocusAdapter(SimpleFocusAdapter().serial(true, false, true, false))
-                .setTag("fileListContainer")
-
-        emptyTips = CellCreateHelper.textCell(
-            context.resources.getString(R.string.empty),
-            R.style.font_crosshead_medium_2
-        ).setTag("tips")
     }
-
-    abstract fun fillFileContent()
 
     abstract fun getPath(): String
 
