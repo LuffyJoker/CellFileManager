@@ -48,11 +48,8 @@ import java.util.ArrayList
  *    date   : 2020/8/6 19:50
  *    desc   :
  */
-class PicturePage(
-    title: String,
-    category: Int,
-    context: Activity
-) : BasePage(context),
+class PicturePage(title: String, category: Int, context: Activity) :
+    BasePage(context),
     MediaContentObserver.ContentObserverListener,
     OnFileItemClickListener,
     OnItemSelectedListener {
@@ -82,11 +79,7 @@ class PicturePage(
         const val DELAY = 1000L
     }
 
-    private val root: Cell = Cell(LinearLayout(LinearLayout.VERTICAL)).setPadding(96, 96, 96, 0)
-
-    fun getRootCell(): Cell {
-        return root
-    }
+    val root: Cell = Cell(LinearLayout(LinearLayout.VERTICAL)).setPadding(96, 96, 96, 0)
 
     init {
         NAME = title

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import com.xgimi.dialog.options.*
+import com.xgimi.view.cell.CellView
 
 /**
  *    author : joker.peng
@@ -29,12 +30,20 @@ open class BaseDialog(context: Context) : Dialog(context) {
      */
     private var runtimeOverrideOptions: (DialogOptions.() -> Unit)? = null
 
+    lateinit var rootView: View
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         compileOverrideOptions?.run { this.invoke(dialogOptions) }
         runtimeOverrideOptions?.run { this.invoke(dialogOptions) }
         dialogOptions.windowFeature?.run { requestWindowFeature(this) }
-        val rootView = LayoutInflater.from(context).inflate(dialogOptions.layoutId, null)
+        rootView = if (dialogOptions.layoutId != -1) {
+            LayoutInflater.from(context).inflate(dialogOptions.layoutId, null)
+        } else {
+            CellView(context).apply {
+                init(context)
+            }
+        }
         setContentView(rootView)
         dialogOptions.convertListener?.invoke(ViewHolder(rootView))
     }
@@ -54,9 +63,11 @@ open class BaseDialog(context: Context) : Dialog(context) {
                 //调节灰色背景透明度[0-1]，默认0.3f
                 dimAmount = dialogOptions.dimAmount
                 //设置dialog宽度
-                width = if (dialogOptions.width == 0) WindowManager.LayoutParams.WRAP_CONTENT else dialogOptions.width
+                width =
+                    if (dialogOptions.width == 0) WindowManager.LayoutParams.WRAP_CONTENT else dialogOptions.width
                 //设置dialog高度
-                height = if (dialogOptions.height == 0) WindowManager.LayoutParams.WRAP_CONTENT else dialogOptions.height
+                height =
+                    if (dialogOptions.height == 0) WindowManager.LayoutParams.WRAP_CONTENT else dialogOptions.height
                 //如果设置了asView，那么设置dialog的x，y值，将dialog显示在view附近
                 if (dialogOptions.showOnAnchor) {
                     // TODO 有错误
@@ -93,10 +104,12 @@ open class BaseDialog(context: Context) : Dialog(context) {
     /**
      * 以view为锚点进行显示
      */
-    fun showOnAnchor(view: View,
-                     horizontalPosition: HorizontalPosition? = null,
-                     verticalPosition: VerticalPosition? = null,
-                     horizontalOffset: Int? = null, verticalOffset: Int? = null) {
+    fun showOnAnchor(
+        view: View,
+        horizontalPosition: HorizontalPosition? = null,
+        verticalPosition: VerticalPosition? = null,
+        horizontalOffset: Int? = null, verticalOffset: Int? = null
+    ) {
         horizontalPosition?.run { dialogOptions.horizontalPosition = this }
         verticalPosition?.run { dialogOptions.verticalPosition = this }
         horizontalOffset?.run { dialogOptions.horizontalOffset = this }

@@ -73,7 +73,7 @@ class UtilsExtension {
         }
 
         /**
-         * 在view显示之前读取宽高的扩展方法
+         * 在 view 显示之前读取宽高的扩展方法
          */
         fun unDisplayViewSize(view: View): IntArray {
             val size = IntArray(2)
@@ -105,6 +105,8 @@ class UtilsExtension {
          * 获取整个屏幕高度的扩展方法
          */
         fun getScreenHeightOverStatusBar(mActivity: AppCompatActivity): Int {
+            var windowManager = mActivity.getSystemService(Context.WINDOW_SERVICE)
+            mActivity.resources.displayMetrics.heightPixels
             val wm = mActivity.getSystemService(Context.WINDOW_SERVICE) as WindowManager?
                 ?: return mActivity.resources.displayMetrics.heightPixels
             val point = Point()

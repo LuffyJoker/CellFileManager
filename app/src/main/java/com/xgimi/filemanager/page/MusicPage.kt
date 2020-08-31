@@ -82,13 +82,7 @@ class MusicPage(
         const val DELAY = 1000L
     }
 
-    private val root: Cell by lazy {
-        Cell(LinearLayout(LinearLayout.VERTICAL)).setPadding(96, 96, 96, 0)
-    }
-
-    fun getRootCell(): Cell {
-        return root
-    }
+    val root: Cell = Cell(LinearLayout(LinearLayout.VERTICAL)).setPadding(96, 96, 96, 0)
 
     init {
         NAME = title

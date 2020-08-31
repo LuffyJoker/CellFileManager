@@ -82,13 +82,8 @@ class VideoPage(
         const val DELAY = 1000L
     }
 
-    private val root: Cell by lazy {
-        Cell(LinearLayout(LinearLayout.VERTICAL)).setPadding(96, 96, 96, 0)
-    }
+    val root: Cell = Cell(LinearLayout(LinearLayout.VERTICAL)).setPadding(96, 96, 96, 0)
 
-    fun getRootCell(): Cell {
-        return root
-    }
 
     //本地应用Adapter
     private lateinit var deviceItemAdapter: CellDataBinding.UpdateAdapter<DeviceInfo>

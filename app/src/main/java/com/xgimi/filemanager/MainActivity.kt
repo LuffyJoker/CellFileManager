@@ -110,24 +110,24 @@ class MainActivity : BaseActivity() {
         )
         pageContainer.addCell(
             VideoPage(getString(R.string.video), FileCategory.Video.ordinal, this)
-                .apply { currentPage = this }.getRootCell(),
+                .apply { currentPage = this }.root,
             Layout.Params(Layout.Params.FULL, Layout.Params.FULL)
         )
         pageContainer.addCell(
             MusicPage(getString(R.string.music), FileCategory.Music.ordinal, this)
-                .apply { currentPage = this }.getRootCell(),
+                .apply { currentPage = this }.root,
             Layout.Params(Layout.Params.FULL, Layout.Params.FULL)
         )
 
         pageContainer.addCell(
             PicturePage(getString(R.string.picture), FileCategory.Picture.ordinal, this)
-                .apply { currentPage = this }.getRootCell(),
+                .apply { currentPage = this }.root,
             Layout.Params(Layout.Params.FULL, Layout.Params.FULL)
         )
 
         pageContainer.addCell(
             DocPage(getString(R.string.doc), FileCategory.Document.ordinal, this)
-                .apply { currentPage = this }.getRootCell(),
+                .apply { currentPage = this }.root,
             Layout.Params(Layout.Params.FULL, Layout.Params.FULL)
         )
 

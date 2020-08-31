@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import androidx.annotation.LayoutRes
-import com.xgimi.dialog.R
 import com.xgimi.dialog.ext.UtilsExtension.Companion.unDisplayViewSize
 
 /**
@@ -20,7 +19,12 @@ class DialogOptions {
      * 布局文件id
      */
     @LayoutRes
-    var layoutId = R.layout.empty_layout
+    var layoutId = -1
+
+    /**
+     * Dialog 显示的View
+     */
+    var contentView: View? = null
 
     /**
      * Convert监听
@@ -106,15 +110,29 @@ class DialogOptions {
      * 依附于锚点显示时，计算 dialogViewX 和 dialogViewY
      */
     internal fun calculateDialogViewXY(view: View) {
+
         //获取到dialogView的宽高
-        val dialogViewSize = unDisplayViewSize(LayoutInflater.from(view.context).inflate(layoutId, null))
+        var dialogViewSize = when {
+            layoutId != -1 -> {
+                unDisplayViewSize(LayoutInflater.from(view.context).inflate(layoutId, null))
+            }
+            contentView != null -> {
+                unDisplayViewSize(contentView!!)
+            }
+            else -> {
+                throw IllegalStateException("view must not be null !!!")
+            }
+        }
+
         val dialogViewWidth = dialogViewSize[0]
         val dialogViewHeight = dialogViewSize[1]
-        //设置view的数据
+
+        // 设置 view 的数据
         val viewWidth = view.width
         val viewHeight = view.height
         val viewX = view.x.toInt()
         val viewY = view.y.toInt()
+
         // 计算dialogView的横坐标
         dialogViewX = when (horizontalPosition) {
             HorizontalPosition.LEFT -> viewX - if (width != 0) width else dialogViewWidth + horizontalOffset
